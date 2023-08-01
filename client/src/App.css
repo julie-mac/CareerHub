@@ -1,3 +1,96 @@
+@import-normalize;
+
+:root {
+  --darkColor: rgb(32, 33, 36);
+  --lightColor: wheat;
+  --primeColor: rgba(150, 202, 27, 0.911);
+  --secondColor: rgba(223, 100, 78, 0.911);
+  --secondColor: rgba(207, 126, 120, 0.911);
+  --primeBorder: dashed 2px var(--lightColor);
+  --secondBorder: solid 1px var(--lightColor);
+  --borderRadius: 1rem;
+}
+
+::selection {
+  background-color: rgb(221, 53, 53);
+  color: var(--darkColor);
+}
+
+:target {
+  padding-top: 8rem;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
+}
+
+body {
+  box-sizing: border-box;
+  font-size: 3rem;
+  line-height: 1.5;
+  font-family: 'Nunito', 'Outfit', sans-serif;
+  background-color: var(--darkColor);
+  text-align: center;
+  color: var(--lightColor);
+}
+
+
+h1 {
+  font-size: 4.5rem;
+  text-transform: uppercase;
+  color: var(--lightColor);
+  padding: 5rem 3rem 2rem 3rem;
+
+}
+
+h2 {
+  font-size: 4rem;
+  color: var(--primeColor);
+  font-family: 'Comforter', cursive, sans-serif;
+}
+
+hr {
+  border: var(--secondBorder);
+  width: 80%;
+}
+
+.primary,
+.contact-form {
+  color: var(--lightColor);
+  margin: "1 rem"
+}
+
+h3 {
+  display: block;
+  font-size: 3rem;
+  color: var(--primeColor);
+
+}
+
+header {
+  width: 100%;
+  margin: 0 auto;
+}
+
+main {
+  margin: 5rem;
+}
+
+svg:hover {
+  transform: scale(1.5);
+  transition: all 0.5s ease-in-out;
+}
+
+
+
+.project:hover,
+button:hover {
+  transform: scale(1.2);
+  transition: all 1s ease-in-out;
+}
+
 .App {
   text-align: center;
 }
@@ -32,7 +125,67 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+/* =================== FORM =================== */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+ 
+ 
+}
+
+input,
+textarea {  
+  width: 30%;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: floralwhite;
+  border: 2px solid var(--color-primary-variant);
+  resize: none;
+  color: black;
+  font-size: 15px;   
+  font-family: "tahoma";
+}
+
+
+.btn-primary {
+  width: 100px;
+  font-weight: bold;
+  color: "rgb(47, 79, 79)";
+  background-color: wheat;
+  font-size: 15px;   
+  font-family: "tahoma";
+  border: 2px solid var(--color-primary-variant);
+  border-radius: 0.5rem;
+  
+}
+
+
+button {
+
+  background-Color: wheat;
+  font-size: 20px;
+  font-family: Tahoma;
+  font-weight: bold;
+  color: rgb(47, 79, 79);   
+  margin: 4px;
+
+}
+
+
+.SvgIcon {
+  transform: scale(2.5);
+  color:wheat!important;
+  
+ }
