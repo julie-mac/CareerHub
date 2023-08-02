@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import NavBar from "../layouts/Navbar"
+import NavBar from "../layouts/Navbar";
+import auth from "../utils/API";
 
 
 const LoginForm = () => {
@@ -16,9 +17,8 @@ const LoginForm = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    //We can add logic here for authentication
-    console.log('Username:', username);
-    console.log('Password:', password);
+    // Call the utility function to make the authentication request
+    auth.handleFormSubmit(username, password);
   };
 
   const handleForgotPasswordClick = () => {
@@ -57,7 +57,7 @@ const LoginForm = () => {
             required
           />
         </div>
-        <div ga>
+        <div>
           <button type="submit">Login</button>
           <button type="button" onClick={handleForgotPasswordClick}>
             Forgot Password
@@ -73,4 +73,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

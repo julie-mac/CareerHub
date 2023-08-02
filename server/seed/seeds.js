@@ -19,7 +19,7 @@ const seedUsers = [
 ];
 
 const seedDatabase = async () => {
-    await mongoose.connect('mongodb://192.168.1.55:27017/forum_db', { useNewUrlParser: true, useUnifiedTopology: true }); // replace with your database name
+    await mongoose.connect('mongodb://127.0.0.1/forum_db', { useNewUrlParser: true, useUnifiedTopology: true }); // replace with your database name
 
     console.log("MongoDB connected…");
     await User.deleteMany({});
