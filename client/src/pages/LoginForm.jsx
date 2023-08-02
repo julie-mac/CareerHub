@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NavBar from "../layouts/NavBar"
+import NavBar from "../layouts/Navbar"
 
 
 const LoginForm = () => {
