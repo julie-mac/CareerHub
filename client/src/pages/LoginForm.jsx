@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
-import NavBar from "../layouts/Navbar"
+import NavBar from "../layouts/Navbar";
+import handleFormSubmit from "../utils/API";
 
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    //We can add logic here for authentication
-    console.log('Username:', username);
-    console.log('Password:', password);
   };
 
   const handleForgotPasswordClick = () => {
@@ -36,14 +30,14 @@ const LoginForm = () => {
       <NavBar />
     <div>
         <h2>Login</h2>
-      <form onSubmit={handleFormSubmit}>
+        <form onSubmit={() => handleFormSubmit(email, password)}>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={handleUsernameChange}
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
             required
           />
         </div>

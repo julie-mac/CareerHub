@@ -3,6 +3,7 @@ const User = require('./models/User');
 const config = require('./config/config');
 const app = express();
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 
 mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`, {
     useNewUrlParser: true,
@@ -79,6 +80,38 @@ app.delete('/api/users/:id', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+//Logging in
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        console.log("User not found");
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) {
+                console.log("Internal server error");
+                return res.status(500).json({ message: 'Internal server error' });
+        }
+            if (!isMatch) {
+                console.log("Invalid password!!");
+                return res.status(401).json({ message: 'Invalid password' });
+            }
+        
+        console.log("Login successful!");
+        res.json({ message: 'Login successful', user });
+      });
+    } catch (error) {
+        console.log("catch");
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
 app.listen(3001, () => console.log('Server listening on port 3000'));
 
