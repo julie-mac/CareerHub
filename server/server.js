@@ -1,6 +1,22 @@
 const express = require('express');
 const User = require('./models/User');
+const config = require('./config/config');
 const app = express();
+const mongoose = require('mongoose');
+
+mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('MongoDB connected…');
+    app.listen(config.app.port, () => console.log(`Server listening on port ${config.app.port}`));
+})
+.catch(err => {
+    console.log('Error connecting to the database', err);
+    process.exit(1);
+});
+
 
 app.use(express.json()); // for parsing application/json
 
@@ -64,5 +80,5 @@ app.delete('/api/users/:id', async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log('Server listening on port 3000'));
+app.listen(3001, () => console.log('Server listening on port 3000'));
 
