@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import NavBar from "../layouts/Navbar";
-import handleFormSubmit from "../utils/API";
+import auth from "../utils/API";
 
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // Call the utility function to make the authentication request
+    auth.handleFormSubmit(username, password);
   };
 
   const handleForgotPasswordClick = () => {
@@ -30,14 +36,14 @@ const LoginForm = () => {
       <NavBar />
     <div>
         <h2>Login</h2>
-        <form onSubmit={() => handleFormSubmit(email, password)}>
+      <form onSubmit={handleFormSubmit}>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
-            id="email"
-            value={email}
-            onChange={handleEmailChange}
+            id="username"
+            value={username}
+            onChange={handleUsernameChange}
             required
           />
         </div>
@@ -51,7 +57,7 @@ const LoginForm = () => {
             required
           />
         </div>
-        <div ga>
+        <div>
           <button type="submit">Login</button>
           <button type="button" onClick={handleForgotPasswordClick}>
             Forgot Password
@@ -67,4 +73,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

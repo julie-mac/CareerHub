@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const User = require('./models/User');
 const config = require('./config/config');
 const app = express();
@@ -18,7 +19,7 @@ mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`, {
     process.exit(1);
 });
 
-
+app.use(cors());
 app.use(express.json()); // for parsing application/json
 
 // Create a new user
