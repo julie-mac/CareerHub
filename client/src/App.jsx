@@ -6,14 +6,13 @@ import LoginForm from './pages/LoginForm';
 
 function App() {
   return (
-    <HashRouter >
-
-    <MainLayout>
     <div className="App">
-      <LoginForm />
+      <HashRouter >
+        <MainLayout>
+          <LoginForm />
+        </MainLayout>
+      </HashRouter>
     </div>
-    </MainLayout>
-    </HashRouter>
   );
 }
 
