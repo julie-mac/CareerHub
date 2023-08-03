@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import NavBar from "../layouts/NavBar"
 import NavBar from "../layouts/Navbar";
-import auth from "../utils/API";
+
 
 
 const LoginForm = () => {
