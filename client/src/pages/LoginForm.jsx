@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Navbar from "../layouts/Navbar";
-import auth from '../utils/API';
-
-
+import NavBar from "../layouts/Navbar";
+import { useNavigate } from 'react-router-dom';
+import auth from "../utils/API";
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const history = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -16,25 +16,25 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    // Call the utility function to make the authentication request
-    auth.handleFormSubmit(username, password);
-  };
-
   const handleForgotPasswordClick = () => {
     // Need "forgot password" functionality
     console.log('Forgot Password clicked');
   };
 
   const handleRegisterClick = () => {
-    // needs to reroute user to a registration page
-    console.log('Register clicked');
+    // Redirect the user to the registration page when "Register" is clicked
+    console.log("Rerouting to register page...");
+    history('/register');
   };
 
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // Call the utility function to make the authentication request
+    auth.handleFormSubmit(username, password);
+  }
   return (
   <div>
-      <Navbar />
+      <NavBar />
     <div>
         <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
