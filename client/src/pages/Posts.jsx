@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import NavBar from '../layouts/NavBar';
+import NavBar from '../layouts/Navbar';
 import { Margin } from "@mui/icons-material";
 
 // import { Margin } from "@mui/icons-material";
