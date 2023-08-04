@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import NavBar from "../layouts/Navbar";
+import Navbar from "../layouts/Navbar";
+import auth from '../utils/API';
 
 
 
