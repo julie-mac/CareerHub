@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from "../layouts/NavBar"
 import NavBar from "../layouts/Navbar";
 
 
@@ -34,7 +33,7 @@ const LoginForm = () => {
 
   return (
   <div>
-      <NavBar />
+      <Navbar />
     <div>
         <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
