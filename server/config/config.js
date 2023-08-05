@@ -1,6 +1,6 @@
 const config = {
     db: {
-        host: '192.168.1.55',
+        host: '127.0.0.1',
         name: 'forum_db'
     },
     app: {

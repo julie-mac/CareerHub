@@ -1,17 +1,21 @@
 import MainLayout from './layouts/MainLayout';
 import React from 'react';
-import { HashRouter} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoginForm from './pages/LoginForm';
+import Register from './pages/Register';
 
 function App() {
   return (
     <div className="App">
-      <HashRouter >
+      <Router>
         <MainLayout>
-          <LoginForm />
+          <Routes>
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
         </MainLayout>
-      </HashRouter>
+      </Router>
     </div>
   );
 }

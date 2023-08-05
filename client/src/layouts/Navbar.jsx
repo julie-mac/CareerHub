@@ -5,9 +5,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-
-
-
 export default function NavBar() {
 
     const listItems = [
