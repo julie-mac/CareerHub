@@ -2,7 +2,7 @@
 
 :root {
   --darkColor: rgb(32, 33, 36);
-  --lightColor: wheat;
+  --lightColor: white;
   --primeColor: rgba(150, 202, 27, 0.911);
   --secondColor: rgba(223, 100, 78, 0.911);
   --secondColor: rgba(207, 126, 120, 0.911);
@@ -31,29 +31,40 @@ body {
   font-size: 3rem;
   line-height: 1.5;
   font-family: 'Nunito', 'Outfit', sans-serif;
-  background-color: var(--darkColor);
+  background-image: url("../src/images/5166950.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+  /* background-color: #282c34;  */
   text-align: center;
   color: var(--lightColor);
+  
 }
 
 
 h1 {
-  font-size: 4.5rem;
+  font-size: 20px;
   text-transform: uppercase;
-  color: var(--lightColor);
-  padding: 5rem 3rem 2rem 3rem;
+  color: var(--lightColor);  
+  line-height: 150%;
+
 
 }
 
 h2 {
   font-size: 4rem;
-  color: var(--primeColor);
-  font-family: 'Comforter', cursive, sans-serif;
+  text-transform: uppercase;
+  color: gold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 hr {
   border: var(--secondBorder);
   width: 80%;
+}
+
+p {
+  font-size: 25px;
 }
 
 .primary,
@@ -65,8 +76,12 @@ hr {
 h3 {
   display: block;
   font-size: 3rem;
-  color: var(--primeColor);
+  color: gold;
 
+}
+
+a {
+  color: aqua;
 }
 
 header {
@@ -76,6 +91,7 @@ header {
 
 main {
   margin: 5rem;
+  
 }
 
 svg:hover {
@@ -147,7 +163,7 @@ form {
 
 input,
 textarea {  
-  width: 30%;
+  width: 60%;
   padding: 1.5rem;
   border-radius: 0.5rem;
   background: floralwhite;
@@ -163,7 +179,7 @@ textarea {
   width: 100px;
   font-weight: bold;
   color: "rgb(47, 79, 79)";
-  background-color: wheat;
+  background-color: #FFE4C4;
   font-size: 15px;   
   font-family: "tahoma";
   border: 2px solid var(--color-primary-variant);
@@ -174,18 +190,63 @@ textarea {
 
 button {
 
-  background-Color: wheat;
-  font-size: 20px;
+  background-Color: gold;
+  font-size: 18px;
   font-family: Tahoma;
   font-weight: bold;
   color: rgb(47, 79, 79);   
   margin: 4px;
+  border-radius: 0.5rem;
+  height: 40px;
 
 }
 
 
 .SvgIcon {
   transform: scale(2.5);
-  color:wheat!important;
+  color:white!important;
   
  }
+
+.register {
+  margin-Left: auto;
+  margin-right: auto;
+  width: 480px;
+
+}
+
+
+ label  {
+  font-size: 20px;
+  color: gold;
+  font-weight: bold;
+ }
+
+ 
+p Update {
+  font-size: 15px;
+}
+
+@media (max-width: 500px) {
+  .register {
+    margin: 5px;
+    width: 400px 
+  }
+  
+  input {  
+    width: 50%;
+  }
+  
+}
+
+@media (max-width: 420px) {
+  .register {
+    margin: 5px;
+    width: 350px 
+  }
+  
+  input {  
+    width: 48%;
+  }
+  
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import NavBar from "../layouts/Navbar";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -43,21 +44,25 @@ const Register = () => {
   };
 
   return (
-    <main className="register">
-      <h1 className="registerTitle">Create an account</h1>
-      <form className="registerForm" onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          required
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-  
-        <label htmlFor="lastName">Last Name</label>
-        <input
+  <div>
+    <NavBar />
+    <main  className="register">
+      <h2>Create an account</h2>
+      <form   onSubmit={handleSubmit}>
+        <div>
+          <label style={{ float: "left" }} >First Name: </label>
+          <input style={{ float: "right" }}
+            type="text"
+            name="firstName"
+            id="firstName"
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
+        <div> 
+        <label style={{ float: "left" }}>Last Name: </label>
+        <input style={{ float: "right" }}
           type="text"
           name="lastName"
           id="lastName"
@@ -65,9 +70,10 @@ const Register = () => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-  
-        <label htmlFor="email">Email Address</label>
-        <input
+        </div>
+        <div>
+        <label style={{ float: "left" }} className="InputFont">Email Address: </label>
+        <input style={{ float: "right" }}
           type="text"
           name="email"
           id="email"
@@ -75,9 +81,10 @@ const Register = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-  
-        <label htmlFor="phoneNumber">Phone Number</label>
-        <input
+        </div>
+        <div> 
+        <label style={{ float: "left" }} htmlFor="phoneNumber">Phone Number: </label>
+        <input style={{ float: "right" }}
           type="text"
           name="phoneNumber"
           id="phoneNumber"
@@ -85,9 +92,10 @@ const Register = () => {
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
-  
-        <label htmlFor="password">Password</label>
-        <input
+        </div> 
+        <div> 
+        <label style={{ float: "left" }} htmlFor="password">Password: </label>
+        <input style={{ float: "right" }}
           type="password"
           name="password"
           id="password"
@@ -95,15 +103,18 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-  
+        </div> 
+        <div> 
         <button className="registerBtn" type="submit">
           REGISTER
         </button>
+        </div> 
         <p>
           Have an account? <Link to="/">Sign in</Link>
         </p>
       </form>
     </main>
+  </div>
   );
 };
 

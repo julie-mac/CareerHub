@@ -37,10 +37,10 @@ const LoginForm = () => {
       <NavBar />
     <div>
         <h2>Login</h2>
-      <form onSubmit={handleFormSubmit}>
+      <form  onSubmit={handleFormSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
-          <input
+          <label  htmlFor="username">Username: </label>
+          <input style={{ width: "200px" }}
             type="text"
             id="username"
             value={username}
@@ -49,8 +49,8 @@ const LoginForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
-          <input
+          <label  htmlFor="password">Password: </label>
+          <input style={{ width: "200px" }}
             type="password"
             id="password"
             value={password}
