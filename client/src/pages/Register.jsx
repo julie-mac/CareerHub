@@ -51,7 +51,7 @@ const Register = () => {
       <form   onSubmit={handleSubmit}>
         <div>
           <label style={{ float: "left" }} >First Name: </label>
-          <input style={{ float: "right" }}
+          <input className= "winput" 
             type="text"
             name="firstName"
             id="firstName"
@@ -62,7 +62,7 @@ const Register = () => {
         </div>
         <div> 
         <label style={{ float: "left" }}>Last Name: </label>
-        <input style={{ float: "right" }}
+        <input className= "winput"
           type="text"
           name="lastName"
           id="lastName"
@@ -73,7 +73,7 @@ const Register = () => {
         </div>
         <div>
         <label style={{ float: "left" }} className="InputFont">Email Address: </label>
-        <input style={{ float: "right" }}
+        <input className= "winput"
           type="text"
           name="email"
           id="email"
@@ -84,7 +84,7 @@ const Register = () => {
         </div>
         <div> 
         <label style={{ float: "left" }} htmlFor="phoneNumber">Phone Number: </label>
-        <input style={{ float: "right" }}
+        <input className= "winput"
           type="text"
           name="phoneNumber"
           id="phoneNumber"
@@ -95,7 +95,7 @@ const Register = () => {
         </div> 
         <div> 
         <label style={{ float: "left" }} htmlFor="password">Password: </label>
-        <input style={{ float: "right" }}
+        <input className= "winput"
           type="password"
           name="password"
           id="password"
