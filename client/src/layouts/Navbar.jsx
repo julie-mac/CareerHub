@@ -9,29 +9,26 @@ export default function NavBar() {
 
     const listItems = [
         {
-            title: "Log In",
-            link: "#/LoginForm",
+            title: "Login",
+            link: "../",
         },
         {
             title: "Sign Up",
-            // link: "#/about",
+            link: "../Register",
 
         },
         {
             title: "Topics",
-            // link: "#/projects",
+            link: "../TopicsMain",
 
         },
         {
             title: "Posts",
-            // link: "#/contact",
+            link: "../Posts",
 
-        },
-        {
-            title: "XXXXX",
-            // link: "#/Resume",
-        },
-
+        }
+       
+      
     ];
 
     const fontFamily = [
@@ -52,13 +49,13 @@ export default function NavBar() {
             backgroundColor: "inherit",
             fontWeight: "bold",
             fontSize: "2.5rem",
-            color: "wheat"
+            color: "white"
         },
         button: {
             fontSize: "1.7rem",
             fontWeight: "bold",
             fontFamily: fontFamily,
-            color: "wheat",
+            color: "white",
             borderRadius: "28px"
 
         },
