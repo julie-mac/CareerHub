@@ -20,6 +20,7 @@ import Finance from './pages/Topics_Title/Finance';
 import Automotive from './pages/Topics_Title/Automotive';
 import Travel from './pages/Topics_Title/Travel';
 import Government from './pages/Topics_Title/Government';
+import Home from './pages/Home';
 
 
 function App() {
@@ -45,7 +46,8 @@ function App() {
             <Route path="/Topics_Title/Finance" element={<Finance/>} />
             <Route path="/Topics_Title/Automotive" element={<Automotive/>} />  
             <Route path="/Topics_Title/Travel" element={<Travel/>} />  
-            <Route path="/Topics_Title/Government" element={<Government/>} />               
+            <Route path="/Topics_Title/Government" element={<Government/>} />    
+            <Route path="/Home" element={<Home/>} />
           </Routes>                    
         </MainLayout>
       </Router>
