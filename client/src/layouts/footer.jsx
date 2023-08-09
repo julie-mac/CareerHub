@@ -25,12 +25,8 @@ export default function Footer() {
       color: "wheat",
     },
     footer: {
-      fontSize: "1.2rem",
+      fontSize: "1.5rem",
       padding: "30px",
-    },
-    codeP: {
-      fontSize: "1.2rem",
-      
     }
   }
   const links = [
@@ -63,7 +59,7 @@ export default function Footer() {
       ))
       }
       <div style={styles.footer}>
-        <p style={styles.codeP}>Updated July 2023</p>
+        <p>Updated July 2023</p>
         2023 © <br />
         Powered by <a href="" target="_blank" rel="noopener noreferrer" style={styles.link}>Title</a>
       </div>
