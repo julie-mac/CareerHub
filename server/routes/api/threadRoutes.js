@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const Thread = require('../../models/Thread');
+const Thread = require('../../models/Threads');
 const Post = require('../../models/Post');
 
 // Route to create a thread
 router.post("/create", (req, res) => {
-    const { title, userId } = req.body;
+    const { title, userId, topic } = req.body;
 
     const newThread = new Thread({
         title,
         userId,
+        topic,
         replies: [],
         likes: []
     });
@@ -72,6 +73,22 @@ router.get("/:threadId", async (req, res) => {
             res.status(404).json({ error_message: "Thread not found!" });
         } else {
             res.json(thread);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error_message: "Unable to process request!" });
+    }
+});
+
+router.get("/topic/:topicName", async (req, res) => {
+    const topicName = req.params.topicName;
+
+    try {
+        const threads = await Thread.find({ topic: topicName });
+        if (!threads || threads.length === 0) {
+            res.status(404).json({ error_message: "No threads found for this topic!" });
+        } else {
+            res.json(threads);
         }
     } catch (err) {
         console.error(err);
