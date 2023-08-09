@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ThreadSchema = new Schema({
   title: String,
   userId: String,
+  topic: String,
   replies: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   likes: [String],
 }, { timestamps: true });

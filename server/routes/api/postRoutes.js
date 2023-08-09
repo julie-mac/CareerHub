@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Thread = require('../../models/Thread');
+const Thread = require('../../models/Threads');
 const Post = require('../../models/Post');
 
 // Route to reply to a thread
