@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../layouts/Navbar";
 
 const Register = () => {
+  const history = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch("/api/users", {
+      const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,18 +29,19 @@ const Register = () => {
         body: JSON.stringify(newUser),
       });
 
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Registration failed:', errorText);
+        throw new Error('Registration failed');
+      }
+
       const data = await response.json();
 
       console.log("New User:", data);
       
-      //Clearing the form 
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPhoneNumber("");
-      setPassword("");
+      history('/TopicsMain')
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("Registration error", error);
     }
   };
 

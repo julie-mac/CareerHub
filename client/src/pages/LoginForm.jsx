@@ -31,6 +31,7 @@ const LoginForm = () => {
     event.preventDefault();
     // Call the utility function to make the authentication request
     auth.handleFormSubmit(username, password);
+    history('/TopicsMain');
   }
   return (
   <div>
