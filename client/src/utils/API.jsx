@@ -1,6 +1,4 @@
 const handleFormSubmit = async (email, password) => {
-    // event.preventDefault();
-  
     try {
       const response = await fetch('http://localhost:3000/api/users/login', {
         method: 'POST',
@@ -14,6 +12,7 @@ const handleFormSubmit = async (email, password) => {
 
       if (response.ok) {
         console.log('Login successful!', data); 
+        return data;
       } else {
         console.log('Login failed:', data.message);
       }
