@@ -37,9 +37,12 @@ const Register = () => {
 
       const data = await response.json();
 
-      console.log("New User:", data);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        console.log("New User Registered");
+        history('/TopicsMain');
+      }
       
-      history('/TopicsMain')
     } catch (error) {
       console.error("Registration error", error);
     }

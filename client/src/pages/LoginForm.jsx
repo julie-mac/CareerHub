@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from "../layouts/Navbar";
 import { useNavigate } from 'react-router-dom';
 import auth from "../utils/API";
@@ -27,12 +27,21 @@ const LoginForm = () => {
     history('/register');
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // Call the utility function to make the authentication request
-    auth.handleFormSubmit(username, password);
-    history('/TopicsMain');
-  }
+
+    try {
+      const data = await auth.handleFormSubmit(username, password);
+
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        history('/TopicsMain');
+      }
+    } catch (error) {
+      console.error("An error occurred while logging in:", error);
+    }
+  };
+  
   return (
   <div>
       <NavBar />
