@@ -32,7 +32,7 @@ const ThreadList = () => {
     };
 
     // Use axios to post the newThread to your server
-    axios.post(`http://192.168.1.55:3000/api/threads`, newThread)
+    axios.post(`http://localhost:3000/api/threads`, newThread)
         .then(response => {
             setThreads(prevThreads => [...prevThreads, response.data]);
             setTitle('');  // Reset title field
