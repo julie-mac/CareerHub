@@ -1,8 +1,8 @@
-# TBD
+# CAREER HUB
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Description
-
+CareerHub is a dynamic social media platform for extensive career discussions, serving students, graduates, and professionals. It allows users to create topics, share insights, and engage through comments, fostering a collaborative environment while enabling networking and industry updates.
 
 ## Table of Contents
 

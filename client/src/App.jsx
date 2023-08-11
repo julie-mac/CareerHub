@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import TopicsMain from './pages/TopicsMain';
 import ThreadList from "./pages/ThreadList";
 import Posts from './pages/Posts';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/Topics_Title/:topicName" element={<ThreadList />} />
             <Route path="/TopicsMain" element={<TopicsMain/>}/>           
-            <Route path="/Posts" element={<Posts/>} />                  
+            <Route path="/Posts" element={<Posts/>} />  
+            <Route path="/ForgotPassword" element={<ForgotPassword/>}/>                
           </Routes>                    
         </MainLayout>
       </Router>
