@@ -47,12 +47,12 @@ const seedUsers = [
 const seedThreads = [
     {
         title: 'First thread',
-        topic: 'Entrepreneurship & Startups',
+        topic: 'Real Estate',
         likes: ['User2', 'User3']
     },
     {
         title: 'Second thread',
-        topic: 'Journalism & Writing',
+        topic: 'Software Development',
         likes: ['User1']
     },
 
