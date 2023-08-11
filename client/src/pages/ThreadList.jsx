@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import NavBar from "../layouts/Navbar";
+
 
 const ThreadList = () => {
   const [threads, setThreads] = useState([]);
@@ -43,6 +45,7 @@ const ThreadList = () => {
 
   return (
     <div>
+       <NavBar />
       <h2>Threads for {topicName}</h2>
       {threads.map((thread, index) => (
         <div key={index}>
@@ -70,7 +73,9 @@ const ThreadList = () => {
                 required
             />
         </div>
+        <div>
         <button type="submit">Add Thread</button>
+        </div>
       </form>
     </div>
   );

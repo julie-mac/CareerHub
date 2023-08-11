@@ -55,6 +55,8 @@ const seedThreads = [
         topic: 'Journalism & Writing',
         likes: ['User1']
     },
+
+    
 ];
 
 const seedPosts = [
