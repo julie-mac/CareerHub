@@ -14,7 +14,7 @@
 ## Screenshot
 
 ## Deployment
-- [Github-Repo]
+- [Github Repo]
 - [Heroku]
 
 ## Usage
