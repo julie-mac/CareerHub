@@ -6,11 +6,16 @@ const Post = require('../../models/Post');
 
 // Route to create a thread
 router.post("/create", (req, res) => {
-    const { title, userId, topic } = req.body;
+    const { title, user_id, topic } = req.body;
+
+    // Check for required fields
+    if (!title || !user_id || !topic) {
+        return res.status(400).json({ error_message: "Title, userId, and topic are required fields!" });
+    }
 
     const newThread = new Thread({
         title,
-        userId,
+        user_id,
         topic,
         replies: [],
         likes: []

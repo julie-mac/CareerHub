@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import TopicsMain from './pages/TopicsMain';
 import ThreadList from "./pages/ThreadList";
 import Posts from './pages/Posts';
+import ThreadDetail from './pages/ThreadDetail'; // Import the new component
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/TopicsMain" element={<TopicsMain />} />
             <Route path="/Topics_Title/:topicName" element={<ThreadList />} />
-            <Route path="/TopicsMain" element={<TopicsMain/>}/>           
-            <Route path="/Posts" element={<Posts/>} />                  
+            <Route path="/threads/:threadId" element={<ThreadDetail />} /> {/* New Route */}
+            <Route path="/Posts" element={<Posts />} />                  
           </Routes>                    
         </MainLayout>
       </Router>

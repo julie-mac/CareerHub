@@ -25,21 +25,28 @@ const ThreadList = () => {
 
     const newThread = {
         title: title,
-        userId: userId,
+        user_id: userId,
         topic: topicName
     };
 
+    // Optimistically update the state
+    setThreads(prevThreads => [...prevThreads, newThread]);
+    setTitle('');  
+    setUserId(''); 
+
     // Use axios to post the newThread to your server
-    axios.post(`http://192.168.1.55:3000/api/threads`, newThread)
+    axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
         .then(response => {
-            setThreads(prevThreads => [...prevThreads, response.data]);
-            setTitle('');  // Reset title field
-            setUserId(''); // Reset userId field
+            // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
+            console.log("Thread successfully added!");
         })
         .catch(error => {
             console.error("Error adding thread:", error);
+            // If there was an error, revert the optimistic update by removing the thread from state
+            setThreads(prevThreads => prevThreads.filter(thread => thread !== newThread));
+            alert("There was an error adding the thread. Please try again.");
         });
-  };
+};
 
   return (
     <div>
