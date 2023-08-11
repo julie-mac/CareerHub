@@ -31,7 +31,7 @@ export default function Footer() {
   }
   const links = [
     {
-      href: '',
+      href: 'mailto:careerhub@gmail.com',
       icon: () => <MailOutlineIcon />
     },
     {
@@ -61,7 +61,7 @@ export default function Footer() {
       <div style={styles.footer}>
         <p>Updated August 2023</p>
         2023 © <br />
-        Powered by <a href="" target="_blank" rel="noopener noreferrer" style={styles.link}>Title</a>
+        Powered by <a href="" target="_blank" rel="noopener noreferrer" style={styles.link}>Career Hub</a>
       </div>
     </Container >
   )
