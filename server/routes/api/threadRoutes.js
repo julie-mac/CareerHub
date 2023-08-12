@@ -3,19 +3,23 @@ const router = express.Router();
 
 const Thread = require('../../models/Threads');
 const Post = require('../../models/Post');
+const mongoose = require('mongoose');
 
+function isValidObjectId(id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}
 // Route to create a thread
 router.post("/create", (req, res) => {
-    const { title, user_id, topic } = req.body;
+    const { title, userId, topic } = req.body;
 
     // Check for required fields
-    if (!title || !user_id || !topic) {
+    if (!title || !userId || !topic) {
         return res.status(400).json({ error_message: "Title, userId, and topic are required fields!" });
     }
 
     const newThread = new Thread({
         title,
-        user_id,
+        userId,
         topic,
         replies: [],
         likes: []
@@ -37,6 +41,9 @@ router.post("/create", (req, res) => {
 router.post("/:threadId/like", async (req, res) => {
     const { userId } = req.body;
     const threadId = req.params.threadId;
+    if (!isValidObjectId(threadId)) {
+        return res.status(400).json({ error_message: "Invalid thread ID!" });
+    }
 
     try {
         const thread = await Thread.findById(threadId);
@@ -72,6 +79,10 @@ router.get("/", async (req, res) => {
 router.get("/:threadId", async (req, res) => {
     const threadId = req.params.threadId;
 
+    if (!isValidObjectId(threadId)) {
+        return res.status(400).json({ error_message: "Invalid thread ID!" });
+    }
+
     try {
         const thread = await Thread.findById(threadId).populate('replies');
         if (!thread) {
@@ -85,11 +96,11 @@ router.get("/:threadId", async (req, res) => {
     }
 });
 
-router.get("/topic/:topicName", async (req, res) => {
-    const topicName = req.params.topicName;
+router.get("/topic/:topicId", async (req, res) => {
+    const topicId = req.params.topicId;
 
     try {
-        const threads = await Thread.find({ topic: topicName });
+        const threads = await Thread.find({ topic: topicId });
         if (!threads || threads.length === 0) {
             res.status(404).json({ error_message: "No threads found for this topic!" });
         } else {
@@ -104,6 +115,10 @@ router.get("/topic/:topicName", async (req, res) => {
 router.put("/:threadId/edit", async (req, res) => {
     const threadId = req.params.threadId;
     const { title } = req.body; // get the new title from the request body
+
+    if (!isValidObjectId(threadId)) {
+        return res.status(400).json({ error_message: "Invalid thread ID!" });
+    }
 
     if (!title) {
         return res.status(400).json({ error_message: "Title is required!" });
@@ -132,6 +147,10 @@ router.put("/:threadId/edit", async (req, res) => {
 // Route to delete a thread along with replies
 router.delete("/:threadId", async (req, res) => {
     const threadId = req.params.threadId;
+
+    if (!isValidObjectId(threadId)) {
+        return res.status(400).json({ error_message: "Invalid thread ID!" });
+    }
 
     try {
         const thread = await Thread.findById(threadId);
