@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "../layouts/Navbar";
+
 
 function ForgotPasswordForm({ onRequestReset }) {
     const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ function ForgotPasswordForm({ onRequestReset }) {
     }; 
 return (
 <div>
-    <NavBar />
+    
     <form onSubmit={handleSubmit}>
     <label>
       Email:
