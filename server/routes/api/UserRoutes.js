@@ -4,7 +4,7 @@ const User = require('../../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const secretKey = crypto.randomBytes(64).toString('hex');
+const secretKey = "crypto.randomBytes(64).toString('hex')";
 
 router.post('/', async (req, res) => {
     try {
@@ -87,7 +87,7 @@ router.post('/login', async (req, res) => {
             }
 
             // Creating a json web token when logging in
-            const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1h' });
 
             console.log("Login successful!");
             res.json({ message: 'Login successful', user, token });
@@ -108,11 +108,25 @@ const authenticateToken = (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'Authentication required' });
 
     jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) return res.status(403).json({ message: 'Invalid token' });
-
+        if (err) {
+            console.log(err);
+            return res.status(403).json({ message: 'Invalid token' });
+        }
         req.userId = decoded.userId;
         next();
     });
 };
+
+router.get('/profile/:userId', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId); // req.userId comes from authenticateToken
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
+
+
 
 module.exports = router;

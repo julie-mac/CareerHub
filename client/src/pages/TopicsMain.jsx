@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "../layouts/Navbar";
 import axios from "axios";
 import Topic from "./Topic";  // Import the new Topic component
 
@@ -20,7 +19,6 @@ const TopicsMain = () => {
 
     return (
         <div>
-            <NavBar />
             <h2>TOPICS</h2>
             
             {topics.map((topic, index) => (

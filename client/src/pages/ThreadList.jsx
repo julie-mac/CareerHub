@@ -40,7 +40,7 @@ const ThreadList = () => {
     };
 
     // Use axios to post the newThread to your server
-    axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
+    axios.post(`http://127.0.0.1:3000/api/threads/create`, newThread)
         .then(response => {
             // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
             console.log("Thread successfully added!");

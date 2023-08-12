@@ -1,68 +1,50 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import NavBar from "../layouts/Navbar";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 
-function Profile() {
-  const [userInfo, setUserInfo] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-  });
+const Profile = () => {
+    const history = useNavigate();
+    const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    const apiUrl = `http://localhost:3000/api/users/${userId}`;
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching user info:", error);
-      });
-  });
-  return (
-    <div>
-        <NavBar />
-        <h1>Profile</h1>
+    useEffect(() => {
+        // Fetch user data
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.userId;
+            
+            const fetchURL = `http://localhost:3000/api/users/profile/${userId}`;
+            fetch(fetchURL, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then(response => {
+                console.log('Response Status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data Received:', data);
+                setUser(data);
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+                history('/'); // Redirect to login if token is invalid
+            });
+        }
+    },[]);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
+
+    return (
         <div>
-            <label>First Name: </label>
-            <input
-                type="text"
-                value={userInfo.firstName}
-                onChange={(e) => setUserInfo({...userInfo, firstName: e.target.value})}
-            />
+            <h1>Welcome, {user.firstName}!</h1>
         </div>
-        <div>
-            <label>Last Name: </label>
-            <input
-                type="text"
-                value={userInfo.lastName}
-                onChange={(e) => setUserInfo({...userInfo, lastName: e.target.value})}
-            />
-        </div>
-        <div>
-            <label>Email: </label>
-            <input
-                type="text"
-                value={userInfo.email}
-                onChange={(e) => setUserInfo({...userInfo, email: e.target.value})}
-            />
-        </div>
-        <div>
-            <label>Phone Number: </label>
-            <input
-                type="text"
-                value={userInfo.phoneNumber}
-                onChange={(e) => setUserInfo({...userInfo, phoneNumber: e.target.value})}
-            />
-        </div>
-    </div>
     );
-}
-
-
-    
+};
 
 export default Profile;
