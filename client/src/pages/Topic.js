@@ -9,7 +9,7 @@ const Topic = ({ topic }) => {
                 <img src={topic.imageUrl} alt={topic.name}/>
                 <div className="details">
                     <h2>
-                        <a href={`/Topics_Title/${topic.name}`}>
+                        <a href={`/Topics_Title/${topic._id}`}>
                             <span>{topic.name}</span>
                         </a>
                     </h2>  
