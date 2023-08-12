@@ -9,7 +9,7 @@ const ThreadDetail = () => {
   const { threadId } = useParams();
 
   useEffect(() => {
-    axios.get(`http://192.168.1.55:3000/api/replies/${threadId}`)
+    axios.get(`http://localhost:3000/api/replies/${threadId}`)
       .then(response => {
         setReplies(response.data);
       })

@@ -37,7 +37,7 @@ const ThreadList = () => {
     setUserId(''); 
 
     // Use axios to post the newThread to your server
-    axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
+    axios.post(`http://local:3000/api/threads/create`, newThread)
         .then(response => {
             // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
             console.log("Thread successfully added!");
@@ -54,16 +54,11 @@ const ThreadList = () => {
     <div>
        <NavBar />
       <h2>Threads for {topicName}</h2>
-      {threads.map((thread, index) => (
-        <div key={index}>
-          {thread.title}
-          {/* ... other thread details */}
-        </div>
-      ))}
+      
 
       <form onSubmit={handleAddThread}>
         <div>
-            <label>Title:</label>
+            <label>Title: </label>
             <input
                 type="text"
                 value={title}
@@ -71,8 +66,9 @@ const ThreadList = () => {
                 required
             />
         </div>
+        
         <div>
-            <label>User ID:</label>
+            <label>User ID: </label>
             <input
                 type="text"
                 value={userId}
@@ -80,10 +76,24 @@ const ThreadList = () => {
                 required
             />
         </div>
+
         <div>
         <button type="submit">Add Thread</button>
         </div>
-      </form>
+
+        <div>
+        {threads.map((thread, index) => (       
+        <div key={index}>        
+        <h1> {thread.title}</h1>        
+          {/* ... other thread details */}
+        </div>               
+        ))}
+        </div> 
+
+      </form>    
+                 
+         
+    
     </div>
   );
 };
