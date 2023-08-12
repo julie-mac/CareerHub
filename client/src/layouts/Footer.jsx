@@ -31,20 +31,20 @@ export default function Footer() {
   }
   const links = [
     {
-      href: '',
+      href: 'mailto:careerhub@gmail.com',
       icon: () => <MailOutlineIcon />
     },
     {
       href: '',
-      icon: () => <GitHubIcon />
+      icon: () => <GitHubIcon onClick={() => window.open('https://github.com/')}/>
     },
     {
       href: '',
-      icon: () => <LinkedInIcon />
+      icon: () => <LinkedInIcon onClick={() => window.open('https://linkedin.com/')}/>
     },
     {
       href: '',
-      icon: () => <FacebookIcon />
+      icon: () => <FacebookIcon onClick={() => window.open('https://facebook.com/')}/>
     }
   ]
 
@@ -59,9 +59,9 @@ export default function Footer() {
       ))
       }
       <div style={styles.footer}>
-        <p>Updated July 2023</p>
+        <p>Updated August 2023</p>
         2023 © <br />
-        Powered by <a href="" target="_blank" rel="noopener noreferrer" style={styles.link}>Title</a>
+        Powered by <a href="" target="_blank" rel="noopener noreferrer" style={styles.link}>Career Hub</a>
       </div>
     </Container >
   )
