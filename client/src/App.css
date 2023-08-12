@@ -44,16 +44,22 @@ body {
 
 
 h1 {
-  font-size: 20px;
+  font-size: 17px;
   text-transform: uppercase;
   color: var(--lightColor);  
-  line-height: 150%;
-
-
+  line-height: 180%;
+  background-color: white;
+  color: black;
+  width: 150px;
+  text-align: left;
+  border-radius: 2px;
+  justify-content: center;
+  border-style: solid;
+  border-color: gold;
 }
 
 h2 {
-  font-size: 4rem;
+  font-size: 30px;
   text-transform: uppercase;
   color: gold;
   font-family: Arial, Helvetica, sans-serif;
@@ -66,6 +72,7 @@ hr {
 
 p {
   font-size: 15px;
+  padding-top: 0;
 }
 
 .primary,
@@ -82,12 +89,14 @@ h3 {
 }
 
 a {
-  color: aqua;
+  color: gold;
+  text-align: left;
+  
 }
 
 header {
   width: 100%;
-  margin: 0 auto;
+  margin-top: 8px;
 }
 
 main {
@@ -321,13 +330,13 @@ p Update {
 	position: relative;
 	flex: 1;
 	max-width: 350px;
-	height: 250px;
+	height: 225px;
 	margin: 20px;
 	overflow: hidden;
 }
 
 .image img{
-	opacity: 0.7;
+	opacity: 1.5;
 	position: relative;
 	vertical-align: top;
 	transition: 0.6s;
@@ -404,7 +413,7 @@ a {
 @media (max-width: 1080px){
 	.image{
 		flex: 100%;
-		max-width: 480px;
+		max-width: 400px;
 	}
 }
 
@@ -415,3 +424,49 @@ a {
 
 	}
       
+
+
+  .thread_list {
+    background-color: #61dafb;
+
+  }
+
+  textarea {
+
+    width: 600px;
+    height: 20px;
+
+  }
+
+
+
+  .thread_comments {
+    width: 800px;
+    margin-Left:auto;
+     margin-Right:auto;
+     margin-Bottom:40px;
+     
+     border-Style:solid;
+     padding-Bottom:15px;
+     border-Radius:5px; 
+     Background-Color:Navy;
+
+  }
+
+  .userID {
+    float: right;
+    margin-Top:0px; 
+    margin-Right:5px;
+    font-size: 12px;
+  }
+
+  .comment {
+    border-Radius:5px;
+    margin-Bottom:0px;
+    width:800px;
+    text-Align:left;
+    margin-Left:5px;
+    margin-Right:5px;
+    font-Size:20px; 
+    text-Transform:capitalize
+  }
