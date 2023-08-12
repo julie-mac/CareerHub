@@ -4,32 +4,34 @@ import { Container, Button, Toolbar, Typography, Box, IconButton, Link, Paper } 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+    const handleLogout = () => {
+        console.log('Logging out...')
+        localStorage.removeItem('token');
+        navigate('/') // Redirects to the login page
+    };
 
     const listItems = [
+        token
+            ? { title: 'Log Out', onClick: handleLogout }
+            : { title: 'Log In', link: '../' },
+        token
+            ? { title: 'Profile', link: '../profile' }
+            : { title: 'Sign-Up', link: '../Register' },
         {
-            title: "Login",
-            link: "../",
+            title: 'Topics',
+            link: '../TopicsMain',
         },
         {
-            title: "Sign Up",
-            link: "../Register",
-
-        },
-        {
-            title: "Topics",
-            link: "../TopicsMain",
-
-        },
-        {
-            title: "Posts",
-            link: "../Posts",
-
+            title: 'Posts',
+            link: '../Posts',
         }
-       
-      
-    ];
+    ];    
 
     const fontFamily = [
         'Nunito',
@@ -125,7 +127,10 @@ export default function NavBar() {
                             >
                                 {listItems.map((listItem, i) => (
                                     <Paper elevation={0}>
-                                        <MenuItem key={i} onClick={handleCloseNavMenu}>
+                                        <MenuItem 
+                                            key={i} 
+                                            onClick={listItem.onClick || handleCloseNavMenu}
+                                        >
                                             <Typography textAlign="center"><Link href={listItem.link} style={styles.link}>{listItem.title}</Link></Typography>
                                         </MenuItem>
                                     </Paper>
@@ -145,7 +150,7 @@ export default function NavBar() {
                             {listItems.map((listItem, i) => (
                                 <Button
                                     key={i}
-                                    onClick={handleCloseNavMenu}
+                                    onClick={listItem.onClick || handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                     href={listItem.link}
                                     style={styles.button}

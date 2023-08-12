@@ -10,7 +10,7 @@ const ThreadList = () => {
   const { topicName } = useParams(); // Capture the dynamic segment of the URL
   
   useEffect(() => {
-    const apiUrl = `http://192.168.1.55:3000/api/threads/topic/${topicName}`; 
+    const apiUrl = `http://127.0.0.1:3000/api/threads/topic/${topicName}`; 
     axios.get(apiUrl)
       .then(response => {
         setThreads(response.data);
@@ -30,7 +30,7 @@ const ThreadList = () => {
     };
 
     // Use axios to post the newThread to your server
-    axios.post(`http://192.168.1.55:3000/api/threads`, newThread)
+    axios.post(`http://127.0.0.1:3000/api/threads`, newThread)
         .then(response => {
             setThreads(prevThreads => [...prevThreads, response.data]);
             setTitle('');  // Reset title field

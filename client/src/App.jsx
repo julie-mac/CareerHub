@@ -7,23 +7,26 @@ import Register from './pages/Register';
 import TopicsMain from './pages/TopicsMain';
 import ThreadList from "./pages/ThreadList";
 import Posts from './pages/Posts';
+import Profile from './pages/Profile';
+import NavBar from './layouts/Navbar';
 
 function App() {
   return (
     <div className="App">
-      <Router>      
+      <Router>
+        <NavBar />
         <MainLayout>
           <Routes>
             <Route path="/" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
             <Route path="/Topics_Title/:topicName" element={<ThreadList />} />
-            <Route path="/TopicsMain" element={<TopicsMain/>}/>           
-            <Route path="/Posts" element={<Posts/>} />                  
-          </Routes>                    
+            <Route path="/TopicsMain" element={<TopicsMain />} />
+            <Route path="/Posts" element={<Posts />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
         </MainLayout>
       </Router>
     </div>
   );
 }
-
 export default App;

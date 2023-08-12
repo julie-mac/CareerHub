@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import NavBar from '../layouts/Navbar';
 // import { Margin } from "@mui/icons-material";
 
 // import { Margin } from "@mui/icons-material";
@@ -21,7 +20,6 @@ const Posts = () => {
   };
   return (
     <>
-      <NavBar />
     <main className='home'>
           <h3> Create a Thread</h3>
 
