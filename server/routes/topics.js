@@ -36,6 +36,31 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Route to get a topic by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const topic = await Topic.findById(req.params.id);
+    if (!topic) {
+      // If no topic is found, return a 404 status
+      return res.status(404).json({ message: "Topic not found" });
+    }
+
+    // Optionally, fetch an image URL for the topic if you wish
+    const imageUrl = await fetchImageFromUnsplash(topic.name);
+
+    // Return the topic (and the image URL if you fetched it)
+    res.json({ ...topic._doc, imageUrl });
+  } catch (err) {
+    // If the error is due to an invalid ID format, return a 400 status
+    if (err.kind === "ObjectId") {
+      return res.status(400).json({ message: "Invalid topic ID format" });
+    }
+    // For other errors, return a 500 status
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 // Route to create a new topic
 router.post('/', async (req, res) => {
   const topic = new Topic({

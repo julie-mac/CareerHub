@@ -22,7 +22,7 @@ function App() {
             <Route path="/" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
             <Route path="/TopicsMain" element={<TopicsMain />} />
-            <Route path="/Topics_Title/:topicName" element={<ThreadList />} />
+            <Route path="/Topics_Title/:topicId" element={<ThreadList />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/threads/:threadId" element={<ThreadDetail />} /> {/* New Route */}
             <Route path="/ForgotPassword" element={<ForgotPassword/>}/>                
