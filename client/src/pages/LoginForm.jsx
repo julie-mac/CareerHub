@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from "../layouts/Navbar";
 import { useNavigate } from 'react-router-dom';
 import auth from "../utils/API";
 
@@ -45,7 +44,6 @@ const LoginForm = () => {
   
   return (
   <div>
-      <NavBar />
     <div>
         <h2>Login</h2>
       <form  onSubmit={handleFormSubmit}>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import NavBar from "../layouts/Navbar";
 
 const Register = () => {
   const history = useNavigate();
@@ -50,7 +49,6 @@ const Register = () => {
 
   return (
   <div>
-    <NavBar />
     <main  className="register">
       <h2>Create an account</h2>
       <form   onSubmit={handleSubmit}>
