@@ -1,10 +1,8 @@
 import React from "react";
-import NavBar from "../layouts/Navbar";
 
 const Home = () => {
   return (
     <div className="home">
-      <NavBar />
       <h1>Welcome to CareerHub</h1>
 
       <div className="home-content">
