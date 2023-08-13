@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import TopicsMain from "./TopicsMain";
+
 
 const ThreadList = () => {
   const [threads, setThreads] = useState([]);
   const [title, setTitle] = useState('');
   const [userId, setUserId] = useState('');
-  
-  const { topicName } = useParams(); // Capture the dynamic segment of the URL
+  const [topicName, setTopicName] = useState('');
+
+  const { topicId } = useParams(); // Capture the dynamic segment of the URL
   
   useEffect(() => {
-    const apiUrl = `http://127.0.0.1:3000/api/threads/topic/${topicName}`; 
-    axios.get(apiUrl)
-      .then(response => {
-        setThreads(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching threads:", error);
-      });
-  }, [topicName]);
+    const fetchThreadsAndTopic = async () => {
+      try {
+        const threadsResponse = await axios.get(`http://localhost:3000/api/threads/topic/${topicId}`);
+        setThreads(threadsResponse.data);
+        
+        const topicResponse = await axios.get(`http://localhost:3000/topics/${topicId}`);
+        setTopicName(topicResponse.data.name);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchThreadsAndTopic();
+  }, [topicId]);
+
 
   const handleAddThread = (event) => {
     event.preventDefault();
@@ -26,53 +36,73 @@ const ThreadList = () => {
     const newThread = {
         title: title,
         userId: userId,
-        topic: topicName
+        topic: topicId
     };
 
     // Use axios to post the newThread to your server
-    axios.post(`http://127.0.0.1:3000/api/threads`, newThread)
+    axios.post(`http://localhost:3000/api/threads/create`, newThread)
         .then(response => {
-            setThreads(prevThreads => [...prevThreads, response.data]);
-            setTitle('');  // Reset title field
-            setUserId(''); // Reset userId field
+            // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
+            console.log("Thread successfully added!");
+            setThreads(prevThreads => [...prevThreads, response.data.thread]);
+            setTitle('');  
+            setUserId(''); 
         })
         .catch(error => {
             console.error("Error adding thread:", error);
+            alert("There was an error adding the thread. Please try again.");
         });
-  };
+};
 
-  return (
-    <div>
-      <h2>Threads for {topicName}</h2>
-      {threads.map((thread, index) => (
-        <div key={index}>
-          {thread.title}
-          {/* ... other thread details */}
-        </div>
-      ))}
+return (
+  <div>
+      
+    <h2>Threads for {topicName}</h2>
+      
 
-      <form onSubmit={handleAddThread}>
-        <div>
-            <label>Title:</label>
-            <input
-                type="text"
+    <form onSubmit={handleAddThread}>
+      <div style={{width:"715px",marginLeft:"auto",marginRight:"auto"}}>
+        <div style={{display:"inline-block", float:"right", marginBottom:"10px"}}>
+          <label >Title: </label>
+            <input style={{width:"600px",}}
+              type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
             />
         </div>
-        <div>
-            <label>User ID:</label>
-            <input
-                type="text"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-                required
-            />
+          
+        <div style={{display:"inline-block", float:"right"}}>
+          <label>User ID: </label>
+            <input style={{width:"600px",}}
+              type="text"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              required
+              />
         </div>
+      </div>
+
+      <div style={{marginBottom:"35px"}}>
         <button type="submit">Add Thread</button>
-      </form>
+        <button onClick={TopicsMain}>Back To Topics</button>
+      </div>       
+
+    </form> 
+
+
+    {threads.map((thread, index) => (
+
+    <div className="thread_comments" key={index}>
+      <p className="userID">Created by: {thread.userId}</p> 
+      <h2 className="comment" ><Link  to={`/threads/${thread._id}`}>{thread.title}</Link></h2>
+      
+      
     </div>
+    ))}
+
+  </div>
+
   );
 };
 

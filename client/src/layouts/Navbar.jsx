@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
+import logo from "../images/logo.png";
 
 export default function NavBar() {
     const navigate = useNavigate();
@@ -86,15 +87,7 @@ export default function NavBar() {
             <AppBar position="static" style={styles.navBar} elevation='0' maxWidth="xl">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-                            style={styles.logo}
-                        >
-                            TBD
-                        </Typography>
+                        <img src={logo} width= "120px" alt="Logo" />
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -144,7 +137,7 @@ export default function NavBar() {
                             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                             style={styles.button}
                         >
-                           TBD
+                           CAREER HUB
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} style={styles.button}>
                             {listItems.map((listItem, i) => (

@@ -18,6 +18,7 @@ const LoginForm = () => {
   const handleForgotPasswordClick = () => {
     // Need "forgot password" functionality
     console.log('Forgot Password clicked');
+    history("/ForgotPassword");
   };
 
   const handleRegisterClick = () => {
