@@ -16,10 +16,10 @@ const ThreadList = () => {
   useEffect(() => {
     const fetchThreadsAndTopic = async () => {
       try {
-        const threadsResponse = await axios.get(`http://localhost:3000/api/threads/topic/${topicId}`);
+        const threadsResponse = await axios.get(`http://192.168.1.55:3000/api/threads/topic/${topicId}`);
         setThreads(threadsResponse.data);
         
-        const topicResponse = await axios.get(`http://localhost:3000/topics/${topicId}`);
+        const topicResponse = await axios.get(`http://192.168.1.55:3000/topics/${topicId}`);
         setTopicName(topicResponse.data.name);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -40,7 +40,7 @@ const ThreadList = () => {
     };
 
     // Use axios to post the newThread to your server
-    axios.post(`http://localhost:3000/api/threads/create`, newThread)
+    axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
         .then(response => {
             // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
             console.log("Thread successfully added!");

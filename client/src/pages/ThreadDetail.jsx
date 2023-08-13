@@ -10,7 +10,7 @@ const ThreadDetail = () => {
   const { threadId } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/threads/${threadId}`)
+    axios.get(`http://192.168.1.55:3000/api/threads/${threadId}`)
       .then(response => {
         setThread(response.data);
         setReplies(response.data.replies || []);
@@ -25,7 +25,7 @@ const ThreadDetail = () => {
     event.preventDefault();
   
     // API endpoint to post a reply
-    const url = `http://localhost:3000/api/posts/${threadId}/reply`;
+    const url = `http://192.168.1.55:3000/api/posts/${threadId}/reply`;
   
     // Assuming you have the user authenticated and you store their email or user id in a state or a context
     // For this example, I'll just hardcode the email, but in a real application you'd want to fetch it from a user's session, context or a state
@@ -58,7 +58,7 @@ const ThreadDetail = () => {
         </div>
       )}
 
-      <div onSubmit={handleAddReply}>
+      <form onSubmit={handleAddReply}>
         <div>
         <textarea 
           value={newReply} 
@@ -72,7 +72,7 @@ const ThreadDetail = () => {
         <button style={{margin:"0px"}} type="submit">Back To Topics</button>
         </div>
 
-      </div>
+      </form>
 
      
       <h3 style={{marginBottom:"8px"}}>Replies</h3>

@@ -55,6 +55,7 @@ const LoginForm = () => {
             value={username}
             onChange={handleUsernameChange}
             required
+            autoComplete="username"
           />
         </div>
         <div>
@@ -65,6 +66,7 @@ const LoginForm = () => {
             value={password}
             onChange={handlePasswordChange}
             required
+            autoComplete="current-password"
           />
         </div>
         <div>
