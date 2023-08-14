@@ -7,6 +7,8 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [newPassword, setNewPassword] = useState("");
   const [step, setStep] = useState("enterEmail");
   const [error, setError] = useState(null);
 
@@ -14,28 +16,32 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/getPhoneNumber", {
-        email: email,
-      });
+        const response = await axios.post("http://192.168.1.55:3000/api/2fa/forgotpassword", {
+            username: email,
+        });
 
-      setPhoneNumber(response.data.phoneNumber);
-      setStep("enterVerificationCode");
-      setError(null);
+        if (response.data.userId) {
+            setUserId(response.data.userId);
+            setStep("enterVerificationCode");
+            setError(null);
+        } else {
+            throw new Error(); // Trigger the catch block
+        }
     } catch (error) {
-      setError("Email not found.");
+        setError("Email not found.");
     }
-  };
+};
+
 
   const handleVerificationCodeSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post("/api/verify", {
-        phone: phoneNumber,
-        token: verificationCode,
+      const response = await axios.post("http://192.168.1.55:3000/api/2fa/verifycode", {
+        username: email,
+        code: verificationCode,
       });
 
-      if (response.data.valid) {
+      if (response.data.message.includes("Code accepted")) {
         setStep("newPassword");
         setError(null);
       } else {
@@ -50,18 +56,22 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/reset", {
-        phone: phoneNumber,
-        token: verificationCode,
-        newPassword: newPassword,
-      });
+        const response = await axios.patch(`http://192.168.1.55:3000/api/users/${userId}`, {
+            password: newPassword,
+        });
 
-      setStep("success");
-      navigate('/');
+        if (response.status === 200) {
+            setStep("success");
+            navigate('/');
+        } else {
+            setError("Failed to reset password.");
+        }
     } catch (error) {
-      setError("Failed to reset password.");
+        setError("Failed to reset password.");
     }
-  };
+};
+
+
 
   if (step === "enterEmail") {
     return (
@@ -120,11 +130,10 @@ function ForgotPassword() {
   } else if (step === 'success') {
     return (
       <div>
-        <h2>You've successfully reset your password and can log in. Redirecting you to the log-in pae in 3...2...1...</h2>
+        <h2>You've successfully reset your password and can log in. Redirecting you to the log-in page in 3...2...1...</h2>
       </div>
     )
   }
 }
 
 export default ForgotPassword;
-

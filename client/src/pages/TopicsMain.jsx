@@ -6,7 +6,7 @@ const TopicsMain = () => {
     const [topics, setTopics] = useState([]);
 
     useEffect(() => {
-        const apiUrl = "http://localhost:3000/topics";
+        const apiUrl = "http://192.168.1.55:3000/topics";
 
         axios.get(apiUrl)
             .then(response => {

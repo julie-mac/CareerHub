@@ -29,35 +29,43 @@ export default function Footer() {
       padding: "30px",
     }
   }
+  const handleIconClick = (url) => {
+    window.open(url, '_blank');
+  }
+
   const links = [
     {
       href: 'mailto:careerhub@gmail.com',
-      icon: () => <MailOutlineIcon />
+      icon: <MailOutlineIcon fontSize="large"/>
     },
     {
-      href: '',
-      icon: () => <GitHubIcon onClick={() => window.open('https://github.com/')}/>
+      href: 'https://github.com/',
+      icon: <GitHubIcon fontSize="large"/>
     },
     {
-      href: '',
-      icon: () => <LinkedInIcon onClick={() => window.open('https://linkedin.com/')}/>
+      href: 'https://linkedin.com/',
+      icon: <LinkedInIcon fontSize="large"/>
     },
     {
-      href: '',
-      icon: () => <FacebookIcon onClick={() => window.open('https://facebook.com/')}/>
+      href: 'https://facebook.com/',
+      icon: <FacebookIcon fontSize="large"/>
     }
   ]
 
   return (
     <Container style={styles.container}>
       {links.map((link, i) => (
-        <div style={styles.icon}>
-          <IconButton key={i} color="secondary" href={link.href} size="large" rel="noreferrer" className='SvgIcon'>
-            {link.icon()}
+        <div style={styles.icon} key={i}>
+          <IconButton 
+            color="secondary" 
+            onClick={() => handleIconClick(link.href)} 
+            size="large" 
+            rel="noreferrer"
+          >
+            {link.icon}
           </IconButton>
         </div>
-      ))
-      }
+      ))}
       <div style={styles.footer}>
         <p>Updated August 2023</p>
         2023 © <br />
