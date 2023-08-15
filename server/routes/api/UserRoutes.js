@@ -12,10 +12,18 @@ router.post('/', async (req, res) => { //New User Registration
         const user = new User(req.body);
         await user.save();
         //Creating a JWT token when user registers a new account
-        const token = jwt.sign({userId: user._id}, secretKey, {expiresIn: "1h"});
+        const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: "1h" });
         res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
-        res.status(400).send(error);
+        if (error.name === 'ValidationError') {
+            let errors = {};
+            Object.keys(error.errors).forEach(key => {
+                errors[key] = error.errors[key].message;
+            });
+            res.status(400).json({ errors });
+        } else {
+            res.status(400).send(error);
+        }
     }
 });
 
