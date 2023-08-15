@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import TopicsMain from "./TopicsMain";
+import jwtDecode from 'jwt-decode';
 
 const ThreadList = () => {
   const [threads, setThreads] = useState([]);
@@ -9,6 +11,12 @@ const ThreadList = () => {
   const [content, setContent] = useState('');  // New state for thread content
   const [userId, setUserId] = useState('');
   const [topicName, setTopicName] = useState('');
+  const isLoggedIn = localStorage.getItem('token');
+  const [userFirstName, setUserFirstName] = useState('');
+  const [userLastName, setUserLastName] = useState('');
+
+  const decodedToken = isLoggedIn ? jwtDecode(localStorage.getItem('token')) : null;
+  const userId = decodedToken ? decodedToken.userId : '';
 
   const navigate = useNavigate();
   const { topicId } = useParams(); // Capture the dynamic segment of the URL
@@ -16,29 +24,55 @@ const ThreadList = () => {
   useEffect(() => {
     const fetchThreadsAndTopic = async () => {
       try {
-        const threadsResponse = await axios.get(`http://192.168.1.55:3000/api/threads/topic/${topicId}`);
-        setThreads(threadsResponse.data);
+        const [threadsResponse, topicResponse] = await Promise.all([
+          axios.get(`http://127.0.0.1:3000/api/threads/topic/${topicId}`),
+          axios.get(`http://127.0.0.1:3000/topics/${topicId}`)
+        ]);
+    
+        console.log('Threads response:', threadsResponse.data);
+        console.log('Topic response:', topicResponse.data);
+    
+        const threadsWithUserData = await Promise.all(
+          threadsResponse.data.map(async (thread) => {
+            const userResponse = await axios.get(`http://127.0.0.1:3000/api/users/${userId}`);
+            const user = userResponse.data; // Assuming userResponse.data has the correct user details
         
-        const topicResponse = await axios.get(`http://192.168.1.55:3000/topics/${topicId}`);
+            // Map the user details to the thread object
+            return {
+              ...thread,
+              user: {
+                firstName: user.firstName,
+                lastName: user.lastName
+              }
+            };
+          })
+        );
+    
+        console.log('ThreadsWithUserData:', threadsWithUserData);
+    
+        setThreads(threadsWithUserData);
         setTopicName(topicResponse.data.name);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
-
+    };    
+    if (decodedToken) {
+      setUserFirstName(decodedToken.firstName);
+      setUserLastName(decodedToken.lastName);
+    }
     fetchThreadsAndTopic();
   }, [topicId]);
 
   const handleAddThread = (event) => {
     event.preventDefault();
-
+  
     const newThread = {
         title: title,
         content: content, 
         userId: userId,
         topic: topicId
     };
-
+  
     // Use axios to post the newThread to your server
     axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
         .then(response => {
