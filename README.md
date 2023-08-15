@@ -14,12 +14,19 @@ CareerHub is a dynamic social media platform for extensive career discussions, s
 ## Screenshot
 
 ## Deployment
-- [Github Repo]
+- [Github Repo](https://github.com/julie-mac/CareerHub)
 - [Heroku]
 
 ## Usage
+Serves as a virtual space where professionals can connect, learn, and share in a secure environment, enhancing their careers and knowledge within their respective industries.
 
 ## Language and Technology Used
+- HTML
+- CSS
+- JavaScript
+- React
+- Node.js
+- Express.js
 
 ## Contributors
 - [angyn3](https://github.com/angyn3)
