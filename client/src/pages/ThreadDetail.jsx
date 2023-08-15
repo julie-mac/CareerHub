@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 const ThreadDetail = () => {
   const [replies, setReplies] = useState([]);
@@ -12,6 +13,8 @@ const ThreadDetail = () => {
   const [userLastName, setUserLastName] = useState('');
   const decodedToken = isLoggedIn ? jwtDecode(localStorage.getItem('token')) : null;
   const userId = decodedToken ? decodedToken.userId : '';
+  
+  const navigate = useNavigate();
   const { threadId } = useParams();
   console.log(threadId);
 
@@ -32,14 +35,16 @@ const ThreadDetail = () => {
     event.preventDefault();
   
     // API endpoint to post a reply
-    const url = `http://localhost:3000/api/posts/${threadId}/reply`;
+    
   
-    axios.post(url, {
+    // For this example, I'll just hardcode the email, but in a real application you'd want to fetch it from a user's session, context or a state
+    // const userId = "jane.doe@example.com"; 
+  
+    axios.post(`http:/localhost:3000/api/posts/${threadId}/reply`, {
       userId: userId,
       content: newReply,
     })
     .then(response => {
-      // Assuming the response from the server contains the new reply's data including its ID
       const addedReply = response.data.reply || { content: newReply, userId: userId }; 
       setReplies(prevReplies => [...prevReplies, addedReply]);
       setNewReply('');
@@ -50,30 +55,37 @@ const ThreadDetail = () => {
     });
   };
   
+  const handleBackToThreads = () => {
+    navigate(-1); 
+  };
 
   return (
     <div>
 
         {thread && (
-        <div>
+        <div >
           <h2 style={{marginBottom:"0px"}}>{thread.title} </h2>
-          <p style={{marginTop:"5px"}}>Created by: {thread.userId}</p> {/* Adjust based on your data structure */}
+          <div className="thread_content">
+          <p>{thread.content}</p>
+          <p className="userID-thread">Created by: {thread.userId}</p> 
+        </div>
         </div>
       )}
 
       { isLoggedIn ? (
         <form onSubmit={handleAddReply}>
-        <div>
-        <textarea 
-          value={newReply} 
-          onChange={(e) => setNewReply(e.target.value)}
-          required
-        />
+          <h3 style={{marginBottom:"8px"}}>Add Reply</h3>
+          <div>
+            <textarea 
+            value={newReply} 
+            onChange={(e) => setNewReply(e.target.value)}
+            required
+          />
         </div>
 
         <div style={{margin:"0px"}}>
-        <button style={{margin:"0px"}} type="submit">Post Reply</button>
-        <button style={{margin:"0px"}} type="submit">Back To Topics</button>
+          <button style={{margin:"0px"}} type="submit">Post Reply</button>
+          <button style={{margin:"0px"}} type="button" onClick={handleBackToThreads}>Back To Threads</button> 
         </div>
 
       </form>

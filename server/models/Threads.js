@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const ThreadSchema = new Schema({
     title: String,
+    content: String,
     userId: { type: Schema.Types.ObjectId, ref: 'User' }, // Change the type to ObjectId and ref to 'User'
     topic: String,
     replies: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
