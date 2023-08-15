@@ -27,7 +27,7 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:3000/api/users", {
+      const response = await fetch("http://192.168.1.55:3000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const Register = () => {
           id="phoneNumber"
           required
           value={phoneNumber}
-          placeholder="+123456789012345"
+          placeholder="+14165554444"
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         </div> 

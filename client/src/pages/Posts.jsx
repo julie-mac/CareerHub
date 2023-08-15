@@ -25,7 +25,7 @@ const Posts = () => {
 
       <form className='homeForm' onSubmit={handleSubmit}>
         <div className='home__container'>
-          <label  >Title / Description: </label>
+          <label>Title / Description: </label>
           <input 
             type='text'
             name='thread'

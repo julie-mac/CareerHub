@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import TopicsMain from "./TopicsMain";
 import jwtDecode from 'jwt-decode';
 
 const ThreadList = () => {
   const [threads, setThreads] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');  // New state for thread content
-  const [userId, setUserId] = useState('');
+  //const [userId, setUserId] = useState('');
   const [topicName, setTopicName] = useState('');
   const isLoggedIn = localStorage.getItem('token');
   const [userFirstName, setUserFirstName] = useState('');
@@ -25,8 +24,8 @@ const ThreadList = () => {
     const fetchThreadsAndTopic = async () => {
       try {
         const [threadsResponse, topicResponse] = await Promise.all([
-          axios.get(`http://127.0.0.1:3000/api/threads/topic/${topicId}`),
-          axios.get(`http://127.0.0.1:3000/topics/${topicId}`)
+          axios.get(`http://192.168.1.55:3000/api/threads/topic/${topicId}`),
+          axios.get(`http://192.168.1.55:3000/topics/${topicId}`)
         ]);
     
         console.log('Threads response:', threadsResponse.data);
@@ -72,24 +71,31 @@ const ThreadList = () => {
         userId: userId,
         topic: topicId
     };
-  
-    // Use axios to post the newThread to your server
     axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
-        .then(response => {
-            console.log("Thread successfully added!");
-            setThreads(prevThreads => [...prevThreads, response.data.thread]);
-            setTitle('');  
-            setContent('');  
-            setUserId(''); 
-        })
-        .catch(error => {
-            console.error("Error adding thread:", error);
-            alert("There was an error adding the thread. Please try again.");
-        });
-  };
+      .then(response => {
+        // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
+        console.log("Thread successfully added!");
+        setThreads(prevThreads => [
+          ...prevThreads,
+          {
+            title: title,
+            user: {
+              firstName: userFirstName, 
+              lastName: userLastName    
+            }
+          }
+        ]);
+        setTitle('');
+        setContent('');  
+      })
+      .catch(error => {
+        console.error("Error adding thread:", error);
+        alert("There was an error adding the thread. Please try again.");
+      });
+    };
 
   const handleBackToTopics = () => {
-    navigate(-1); // Assuming '/topics' is the route for your topics page
+    navigate(-1); 
   };
 
   return (
@@ -120,16 +126,6 @@ const ThreadList = () => {
             ></textarea>
           </div>
 
-          <div style={{display:"inline-block", float:"right", marginBottom:"10px"}}>
-            <label>User ID: </label>
-            <input 
-              style={{width:"600px",}}
-              type="text"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-              required
-            />
-          </div>
         </div>
 
         <div style={{marginBottom:"35px"}}>
@@ -141,7 +137,7 @@ const ThreadList = () => {
 
       {threads.map((thread, index) => (
         <div className="thread_comments" key={index}>
-          <p className="userID">Created by: {thread.userId}</p> 
+          <p className="userID">Created by: {thread.user.firstName} {thread.user.lastName}</p>
           <h2 className="comment"><Link  to={`/threads/${thread._id}`}>{thread.title}</Link></h2>
           {/* Display the thread content here if needed */}
         </div>
