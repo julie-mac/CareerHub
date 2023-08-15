@@ -31,7 +31,7 @@ const seedUsers = [
     {
         firstName: 'John',
         lastName: 'Doe',
-        email: 'john.doe@example.com',
+        email: 'dude@example.com',
         phoneNumber: '1234567890',
         password: 'password1'
     },

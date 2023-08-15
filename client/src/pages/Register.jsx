@@ -8,9 +8,16 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     // Validate phone number format before proceeding
+     if (!/^\+[0-9]{1,15}$/.test(phoneNumber)) {
+      alert("Please enter a valid +E.164 phone number format.");
+      return;
+  }
+
     const newUser = {
       firstName,
       lastName,
@@ -20,7 +27,7 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch("http://192.168.1.55:3000/api/users", {
+      const response = await fetch("http://127.0.0.1:3000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,23 +36,32 @@ const Register = () => {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Registration failed:', errorText);
+        const errorData = await response.json();
+        if (errorData.errors) {
+            setErrors(errorData.errors);  // <-- handle validation errors
+        } else {
+            console.error('Registration failed:', errorData.message);
+        }
         throw new Error('Registration failed');
-      }
+      } else {
+        const data = await response.json();
 
-      const data = await response.json();
-
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        console.log("New User Registered");
-        history('/TopicsMain');
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          console.log("New User Registered");
+          history('/TopicsMain');
+        }
       }
       
     } catch (error) {
       console.error("Registration error", error);
     }
   };
+
+  const errorMessages = Object.values(errors).map((error, index) => (
+    <li key={index}>{error.message || error}</li>
+    
+  ));
 
   return (
   <div>
@@ -87,12 +103,14 @@ const Register = () => {
         </div>
         <div> 
         <label style={{ float: "left" }} htmlFor="phoneNumber">Phone Number: </label>
-        <input className= "winput"
-          type="text"
+        <input 
+          className="winput"
+          type="tel"
           name="phoneNumber"
           id="phoneNumber"
           required
           value={phoneNumber}
+          placeholder="+123456789012345"
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         </div> 
@@ -113,6 +131,11 @@ const Register = () => {
           REGISTER
         </button>
         </div> 
+        {errorMessages.length > 0 && (
+          <div className="error-message">
+            <ul className="error-list">{errorMessages}</ul>
+          </div>
+        )}
         <p>
           Have an account? <Link to="/">Sign in</Link>
         </p>

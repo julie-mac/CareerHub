@@ -4,17 +4,26 @@ const User = require('../../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const secretKey = "crypto.randomBytes(64).toString('hex')";
+const secretKey = crypto.randomBytes(64).toString('hex');
+const { authenticateToken } = require('../utils/Auth');
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res) => { //New User Registration
     try {
         const user = new User(req.body);
         await user.save();
         //Creating a JWT token when user registers a new account
-        const token = jwt.sign({userId: user._id}, secretKey, {expiresIn: "1h"});
+        const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: "1h" });
         res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
-        res.status(400).send(error);
+        if (error.name === 'ValidationError') {
+            let errors = {};
+            Object.keys(error.errors).forEach(key => {
+                errors[key] = error.errors[key].message;
+            });
+            res.status(400).json({ errors });
+        } else {
+            res.status(400).send(error);
+        }
     }
 });
 
@@ -97,25 +106,6 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-
-// router.get('/protected', authenticateToken, (req, res) => {
-//     // Any protected route logic here ???
-// });
-
-// Web Token authenticaion
-const authenticateToken = (req, res, next) => {
-    const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'Authentication required' });
-
-    jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            console.log(err);
-            return res.status(403).json({ message: 'Invalid token' });
-        }
-        req.userId = decoded.userId;
-        next();
-    });
-};
 
 router.get('/profile/:userId', authenticateToken, async (req, res) => {
     try {

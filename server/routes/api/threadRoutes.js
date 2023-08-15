@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { autenticateToken } = require('../utils/Auth');
 const Thread = require('../../models/Threads');
 const Post = require('../../models/Post');
 const mongoose = require('mongoose');
@@ -10,17 +10,18 @@ function isValidObjectId(id) {
 }
 // Route to create a thread
 router.post("/create", (req, res) => {
-    const { title, userId, topic } = req.body;
+    const { title, userId, topic, content } = req.body;
 
-    // Check for required fields
-    if (!title || !userId || !topic) {
-        return res.status(400).json({ error_message: "Title, userId, and topic are required fields!" });
+// Check for required fields
+    if (!title || !userId || !topic || !content) {
+        return res.status(400).json({ error_message: "Title, userId, topic, and content are required fields!" });
     }
 
     const newThread = new Thread({
         title,
         userId,
         topic,
+        content,
         replies: [],
         likes: []
     });
@@ -100,7 +101,7 @@ router.get("/topic/:topicId", async (req, res) => {
     const topicId = req.params.topicId;
 
     try {
-        const threads = await Thread.find({ topic: topicId });
+        const threads = await Thread.find({ topic: topicId }).populate('userId');
         if (!threads || threads.length === 0) {
             res.status(404).json({ error_message: "No threads found for this topic!" });
         } else {
