@@ -12,7 +12,7 @@ const ThreadDetail = () => {
   const { threadId } = useParams();
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:3000/api/threads/${threadId}`)
+    axios.get(`http://192.168.1.55:3000/api/threads/${threadId}`)
       .then(response => {
         setThread(response.data);
         setReplies(response.data.replies || []);
@@ -27,12 +27,12 @@ const ThreadDetail = () => {
     event.preventDefault();
   
     // API endpoint to post a reply
-    const url = `http:/127.0.0.1:3000/api/posts/${threadId}/reply`;
+    
   
     // For this example, I'll just hardcode the email, but in a real application you'd want to fetch it from a user's session, context or a state
     const userId = "jane.doe@example.com"; 
   
-    axios.post(url, {
+    axios.post(`http:/192.168.1.55:3000/api/posts/${threadId}/reply`, {
       userId: userId,
       content: newReply,
     })
