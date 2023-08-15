@@ -369,8 +369,9 @@ a {
 
   .thread_list {
     background-color: #61dafb;
+    padding: 1rem;
+}
 
-  }
 
   textarea {
 
@@ -391,13 +392,19 @@ a {
      padding-Bottom:15px;
      border-Radius:5px; 
      Background-Color:Navy;
+     padding: 1rem;
 
   }
 
   .userID {
     float: right;
-    margin-Top:0px; 
-    margin-Right:5px;
+    margin-top:0px; 
+    margin-right:5px;
+    font-size: 12px;
+  }
+  .userID-thread {
+    float: right;
+    margin-top:-10px;
     font-size: 12px;
   }
 
@@ -562,3 +569,37 @@ main {
 
 
 
+  .error-message {
+    color: red;
+    font-size: 2rem;
+    margin-top: 0.2rem;
+}
+.error-list {
+  list-style-type: none;
+  padding-left: 0; 
+}
+.thread-textarea {
+  width: 600px;
+  height: 20px;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: floralwhite;
+  border: 2px solid var(--color-primary-variant);
+  resize: none;
+  color: black;
+  font-size: 15px;   
+  font-family: "tahoma";
+}
+
+.thread_content {
+  width: 800px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:40px;
+  border-style:solid;
+  padding-bottom:10px;
+  border-radius:5px; 
+  Background-color:rgb(0, 153, 255);
+  padding: 1rem;
+
+}

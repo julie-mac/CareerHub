@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 const ThreadDetail = () => {
   const [replies, setReplies] = useState([]);
   const [newReply, setNewReply] = useState('');
   const [thread, setThread] = useState(null);
-
+  
+  const navigate = useNavigate();
   const { threadId } = useParams();
 
   useEffect(() => {
@@ -27,7 +29,6 @@ const ThreadDetail = () => {
     // API endpoint to post a reply
     const url = `http://localhost:3000/api/posts/${threadId}/reply`;
   
-    // Assuming you have the user authenticated and you store their email or user id in a state or a context
     // For this example, I'll just hardcode the email, but in a real application you'd want to fetch it from a user's session, context or a state
     const userId = "jane.doe@example.com"; 
   
@@ -36,7 +37,6 @@ const ThreadDetail = () => {
       content: newReply,
     })
     .then(response => {
-      // Assuming the response from the server contains the new reply's data including its ID
       const addedReply = response.data.reply || { content: newReply, userId: userId }; 
       setReplies(prevReplies => [...prevReplies, addedReply]);
       setNewReply('');
@@ -47,17 +47,23 @@ const ThreadDetail = () => {
     });
   };
   
+  const handleBackToThreads = () => {
+    navigate(-1); 
+  };
 
   return (
     <div>
       {/* Display the thread */}
         {thread && (
-        <div>
+        <div >
           <h2 style={{marginBottom:"0px"}}>{thread.title} </h2>
-          <p style={{marginTop:"5px"}}>Created by: {thread.userId}</p> {/* Adjust based on your data structure */}
+          <div className="thread_content">
+          <p>{thread.content}</p>
+          <p className="userID-thread">Created by: {thread.userId}</p> 
+        </div>
         </div>
       )}
-
+      <h3 style={{marginBottom:"8px"}}>Add Reply</h3>
       <form onSubmit={handleAddReply}>
         <div>
         <textarea className="winputThreads1"
@@ -68,8 +74,8 @@ const ThreadDetail = () => {
         </div>
 
         <div style={{margin:"0px"}}>
-        <button style={{margin:"0px"}} type="submit">Post Reply</button>
-        <button style={{margin:"0px"}} type="submit">Back To Topics</button>
+          <button style={{margin:"0px"}} type="submit">Post Reply</button>
+          <button style={{margin:"0px"}} type="button" onClick={handleBackToThreads}>Back To Threads</button> 
         </div>
 
       </form>
