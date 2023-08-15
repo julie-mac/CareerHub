@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const secretKey = crypto.randomBytes(64).toString('hex');
+const secretKey = "mysecretshhh" //crypto.randomBytes(64).toString('hex');
 
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];

@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const ThreadDetail = () => {
   const [replies, setReplies] = useState([]);
   const [newReply, setNewReply] = useState('');
   const [thread, setThread] = useState(null);
-
+  const isLoggedIn = localStorage.getItem('token');
+  const [userFirstName, setUserFirstName] = useState('');
+  const [userLastName, setUserLastName] = useState('');
+  const decodedToken = isLoggedIn ? jwtDecode(localStorage.getItem('token')) : null;
+  const userId = decodedToken ? decodedToken.userId : '';
   const { threadId } = useParams();
+  console.log(threadId);
+
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:3000/api/threads/${threadId}`)
+    axios.get(`http://localhost:3000/api/threads/${threadId}`)
       .then(response => {
         setThread(response.data);
         setReplies(response.data.replies || []);
@@ -25,11 +32,7 @@ const ThreadDetail = () => {
     event.preventDefault();
   
     // API endpoint to post a reply
-    const url = `http:/127.0.0.1:3000/api/posts/${threadId}/reply`;
-  
-    // Assuming you have the user authenticated and you store their email or user id in a state or a context
-    // For this example, I'll just hardcode the email, but in a real application you'd want to fetch it from a user's session, context or a state
-    const userId = "jane.doe@example.com"; 
+    const url = `http://localhost:3000/api/posts/${threadId}/reply`;
   
     axios.post(url, {
       userId: userId,
@@ -50,7 +53,7 @@ const ThreadDetail = () => {
 
   return (
     <div>
-      {/* Display the thread */}
+
         {thread && (
         <div>
           <h2 style={{marginBottom:"0px"}}>{thread.title} </h2>
@@ -58,7 +61,8 @@ const ThreadDetail = () => {
         </div>
       )}
 
-      <form onSubmit={handleAddReply}>
+      { isLoggedIn ? (
+        <form onSubmit={handleAddReply}>
         <div>
         <textarea 
           value={newReply} 
@@ -73,6 +77,11 @@ const ThreadDetail = () => {
         </div>
 
       </form>
+      ) : (
+        <div>
+          <p>Please log in to post a reply.</p>
+        </div>
+      )}
 
      
       <h3 style={{marginBottom:"8px"}}>Replies</h3>

@@ -94,12 +94,13 @@ const seedDatabase = async () => {
 
     for(let i = 0; i < seedThreads.length; i++) {
         let topicId = await Topic.findOne({ name: seedThreads[i].topic });
+        let user = await User.findOne({ email: seedUsers[i].email });
 
-        let thread = new Thread({...seedThreads[i], userId: seedUsers[i].email, topic: topicId._id});
+        let thread = new Thread({...seedThreads[i], userId: user._id, topic: topicId._id});
         let savedThread = await thread.save();
         console.log('Thread created: ' + savedThread.title);
 
-        let post = new Post({...seedPosts[i], userId: seedUsers[i].email, threadId: savedThread._id});
+        let post = new Post({...seedPosts[i], userId: user._id, threadId: savedThread._id});
         let savedPost = await post.save();
         console.log('Post created: ' + savedPost.content);
 
