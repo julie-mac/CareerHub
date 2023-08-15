@@ -10,17 +10,18 @@ function isValidObjectId(id) {
 }
 // Route to create a thread
 router.post("/create", (req, res) => {
-    const { title, userId, topic } = req.body;
+    const { title, userId, topic, content } = req.body;
 
-    // Check for required fields
-    if (!title || !userId || !topic) {
-        return res.status(400).json({ error_message: "Title, userId, and topic are required fields!" });
+// Check for required fields
+    if (!title || !userId || !topic || !content) {
+        return res.status(400).json({ error_message: "Title, userId, topic, and content are required fields!" });
     }
 
     const newThread = new Thread({
         title,
         userId,
         topic,
+        content,
         replies: [],
         likes: []
     });

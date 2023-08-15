@@ -1,26 +1,34 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// schema
 const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true
+    required: true,
+    trim: true, // to ensure no unintended spaces
+    minlength: 1,
+    maxlength: 100
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+    minlength: 1,
+    maxlength: 100
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    lowercase: true
+    lowercase: true,
+    trim: true,
+    match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.']
   },
   phoneNumber: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    match: [/^\+[0-9]{1,15}$/, 'Please enter a valid +E.164 phone number format.']
   },
   password: {
     type: String,
@@ -29,7 +37,6 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-// middleware to hash password
 UserSchema.pre('save', function(next) {
   const user = this;
 

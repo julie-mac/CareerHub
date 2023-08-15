@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import TopicsMain from "./TopicsMain";
-
 
 const ThreadList = () => {
   const [threads, setThreads] = useState([]);
   const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');  // New state for thread content
   const [userId, setUserId] = useState('');
   const [topicName, setTopicName] = useState('');
 
+  const navigate = useNavigate();
   const { topicId } = useParams(); // Capture the dynamic segment of the URL
   
   useEffect(() => {
@@ -29,12 +29,12 @@ const ThreadList = () => {
     fetchThreadsAndTopic();
   }, [topicId]);
 
-
   const handleAddThread = (event) => {
     event.preventDefault();
 
     const newThread = {
         title: title,
+        content: content, 
         userId: userId,
         topic: topicId
     };
@@ -42,67 +42,78 @@ const ThreadList = () => {
     // Use axios to post the newThread to your server
     axios.post(`http://192.168.1.55:3000/api/threads/create`, newThread)
         .then(response => {
-            // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
             console.log("Thread successfully added!");
             setThreads(prevThreads => [...prevThreads, response.data.thread]);
             setTitle('');  
+            setContent('');  
             setUserId(''); 
         })
         .catch(error => {
             console.error("Error adding thread:", error);
             alert("There was an error adding the thread. Please try again.");
         });
-};
+  };
 
-return (
-  <div>
-      
-    <h2>Threads for {topicName}</h2>
-      
+  const handleBackToTopics = () => {
+    navigate(-1); // Assuming '/topics' is the route for your topics page
+  };
 
-    <form onSubmit={handleAddThread}>
-      <div style={{width:"715px",marginLeft:"auto",marginRight:"auto"}}>
-        <div style={{display:"inline-block", float:"right", marginBottom:"10px"}}>
-          <label >Title: </label>
-            <input style={{width:"600px",}}
-              type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-            />
-        </div>
+  return (
+    <div>
+      <h2>Threads for {topicName}</h2>
+
+      <form onSubmit={handleAddThread}>
+        <div style={{width:"750px",marginLeft:"auto",marginRight:"auto"}}>
           
-        <div style={{display:"inline-block", float:"right"}}>
-          <label>User ID: </label>
-            <input style={{width:"600px",}}
+          <div style={{display:"inline-block", float:"right", marginBottom:"10px"}}>
+            <label>Title: </label>
+            <input 
+              style={{width:"600px",}}
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+
+          <div style={{display:"inline-block", float:"right", marginBottom:"10px"}}>
+            <label>Content: </label>
+            <textarea 
+                style={{width:"600px",}}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+            ></textarea>
+          </div>
+
+          <div style={{display:"inline-block", float:"right", marginBottom:"10px"}}>
+            <label>User ID: </label>
+            <input 
+              style={{width:"600px",}}
               type="text"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               required
-              />
+            />
+          </div>
         </div>
-      </div>
 
-      <div style={{marginBottom:"35px"}}>
-        <button type="submit">Add Thread</button>
-        <button onClick={TopicsMain}>Back To Topics</button>
-      </div>       
+        <div style={{marginBottom:"35px"}}>
+          <button type="submit">Add Thread</button>
+          <button style={{margin:"0px"}} type="button" onClick={handleBackToTopics}>Back To Topics</button> 
+        </div>       
 
-    </form> 
+      </form> 
 
+      {threads.map((thread, index) => (
+        <div className="thread_comments" key={index}>
+          <p className="userID">Created by: {thread.userId}</p> 
+          <h2 className="comment"><Link  to={`/threads/${thread._id}`}>{thread.title}</Link></h2>
+          {/* Display the thread content here if needed */}
+        </div>
+      ))}
 
-    {threads.map((thread, index) => (
-
-    <div className="thread_comments" key={index}>
-      <p className="userID">Created by: {thread.userId}</p> 
-      <h2 className="comment" ><Link  to={`/threads/${thread._id}`}>{thread.title}</Link></h2>
-      
-      
     </div>
-    ))}
-
-  </div>
-
   );
 };
 
