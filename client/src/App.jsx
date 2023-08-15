@@ -6,9 +6,10 @@ import LoginForm from './pages/LoginForm';
 import Register from './pages/Register';
 import TopicsMain from './pages/TopicsMain';
 import ThreadList from "./pages/ThreadList";
+import Posts from './pages/Posts';
 import Profile from './pages/Profile';
 import NavBar from './layouts/Navbar';
-import ThreadDetail from './pages/ThreadDetail'; 
+import ThreadDetail from './pages/ThreadDetail'; // Import the new component
 import ForgotPassword from './pages/ForgotPassword';
 
 function App() {

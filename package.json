@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "client": "cd client && PORT=3001 react-scripts start",
+    "client": "cd client && cross-env PORT=3001 react-scripts start",
     "server": "nodemon ./server/server.js",
     "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
   },

@@ -53,24 +53,36 @@ export default function Footer() {
   ]
 
   return (
+
     <Container style={styles.container}>
+
       {links.map((link, i) => (
-        <div style={styles.icon} key={i}>
-          <IconButton 
-            color="secondary" 
-            onClick={() => handleIconClick(link.href)} 
-            size="large" 
-            rel="noreferrer"
-          >
+
+        <div style={styles.icon}>
+
+          <IconButton key={i} color="secondary" href={link.href} size="large" rel="noreferrer" className='SvgIcon'>
+
             {link.icon}
+
           </IconButton>
+
         </div>
-      ))}
+
+      ))
+
+      }
+
       <div style={styles.footer}>
+
         <p>Updated August 2023</p>
+
         2023 © <br />
+
         Powered by <a href="" target="_blank" rel="noopener noreferrer" style={styles.link}>Career Hub</a>
+
       </div>
+
     </Container >
+
   )
 }
