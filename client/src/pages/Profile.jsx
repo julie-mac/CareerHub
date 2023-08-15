@@ -15,7 +15,7 @@ const Profile = () => {
             const decodedToken = jwtDecode(token);
             const userId = decodedToken.userId;
             
-            const fetchURL = `http://192.168.1.55:3000/api/users/profile/${userId}`;
+            const fetchURL = `http://127.0.0.1:3000/api/users/profile/${userId}`;
             fetch(fetchURL, {
                 method: 'GET',
                 headers: {
