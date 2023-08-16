@@ -113,7 +113,7 @@ return (
   <h2>Threads for {topicName}</h2>
     
 
-  <form onSubmit={handleAddThread}>
+  {isLoggedIn ? (<form onSubmit={handleAddThread}>
     <div style={{maxWidth:"720px", marginLeft:"auto",marginRight:"auto"}}>
       <div style={{display:"inline-block", marginBottom:"10px"}}>
         <label >Title: </label>
@@ -142,6 +142,9 @@ return (
     </div>       
 
   </form> 
+  ) : (
+    <p>Please log in to post a thread.</p>
+  )}
 
   {threads.map((thread, index) => (
     <div className="thread_comments" key={index}>
