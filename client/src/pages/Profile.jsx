@@ -50,7 +50,7 @@ const Profile = () => {
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.userId;
-        const fetchURL = `http://localhost:3000/api/users/profile/${userId}`;
+        const fetchURL = `http://localhost:3000/api/users/${userId}`;
         fetch(fetchURL, {
             method: 'PUT',
             headers: {
