@@ -15,7 +15,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-        const response = await axios.post("http://192.168.1.55:3000/api/2fa/forgotpassword", {
+        const response = await axios.post("http://localhost:3000/api/2fa/forgotpassword", {
             username: email,
         });
 

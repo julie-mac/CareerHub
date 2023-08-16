@@ -32,14 +32,14 @@ const seedUsers = [
         firstName: 'John',
         lastName: 'Doe',
         email: 'dude@example.com',
-        phoneNumber: '1234567890',
+        phoneNumber: '+11234567890',
         password: 'password1'
     },
     {
         firstName: 'Jane',
         lastName: 'Doe',
         email: 'jane.doe@example.com',
-        phoneNumber: '0987654321',
+        phoneNumber: '+10987654321',
         password: 'password2'
     }
 ];

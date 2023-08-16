@@ -36,6 +36,24 @@ router.post("/:threadId/reply", async (req, res) => {
     }
 });
 
+router.get("/:threadId/reply", async (req, res) => {
+    const threadId = req.params.threadId;
+  
+    try {
+      const thread = await Thread.findById(threadId);
+      if (!thread) {
+        res.status(404).json({ error_message: "Thread not found!" });
+      } else {
+        const replies = await Post.find({ threadId });
+        res.json(replies);
+      }
+    } catch(err) {
+      console.error(err);
+      res.status(500).json({ error_message: "Unable to get replies!" });
+    }
+  });
+  
+
 // Route to get all posts by a specific user
 router.get("/user/:userId", async (req, res) => {
     try {
