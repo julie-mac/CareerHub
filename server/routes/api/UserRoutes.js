@@ -4,8 +4,7 @@ const User = require('../../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const secretKey = crypto.randomBytes(64).toString('hex');
-const { authenticateToken } = require('../utils/Auth');
+const { authenticateToken, secretKey } = require('../utils/Auth');
 
 router.post('/', async (req, res) => { //New User Registration
     try {
@@ -109,7 +108,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/profile/:userId', authenticateToken, async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId); // req.userId comes from authenticateToken
+        const user = await User.findById(req.params.userId); // req.params.userId comes from authenticateToken
         res.json(user);
     } catch (error) {
         console.log(error);
