@@ -11,6 +11,8 @@ const ThreadDetail = () => {
   const navigate = useNavigate();
   const { threadId } = useParams();
 
+  console.log(threadId);
+
   useEffect(() => {
     axios.get(`http://192.168.1.55:3000/api/threads/${threadId}`)
       .then(response => {
