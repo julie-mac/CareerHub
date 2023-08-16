@@ -369,9 +369,8 @@ a {
 
   .thread_list {
     background-color: #61dafb;
-    padding: 1rem;
-}
 
+  }
 
   textarea {
 
@@ -392,19 +391,13 @@ a {
      padding-Bottom:15px;
      border-Radius:5px; 
      Background-Color:Navy;
-     padding: 1rem;
 
   }
 
   .userID {
     float: right;
-    margin-top:0px; 
-    margin-right:5px;
-    font-size: 12px;
-  }
-  .userID-thread {
-    float: right;
-    margin-top:-10px;
+    margin-Top:0px; 
+    margin-Right:5px;
     font-size: 12px;
   }
 
@@ -569,6 +562,10 @@ main {
 
 
 
+
+
+
+/* 
   .error-message {
     color: red;
     font-size: 2rem;
@@ -602,4 +599,4 @@ main {
   Background-color:rgb(0, 153, 255);
   padding: 1rem;
 
-}
+} */

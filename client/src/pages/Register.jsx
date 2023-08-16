@@ -110,7 +110,7 @@ const Register = () => {
           id="phoneNumber"
           required
           value={phoneNumber}
-          placeholder="+123456789012345"
+          placeholder="+14165554444"
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         </div> 
