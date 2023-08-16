@@ -91,12 +91,13 @@ const Profile = () => {
 
     return (
         <div>
-            {user.firstName && <h1>Welcome, {user.firstName}!</h1>}
+            {user.firstName && <h2>Welcome, {user.firstName}!</h2>}
 
             {isEditing ? (
+            <div style={{maxWidth:"750px", marginLeft:"auto",marginRight:"auto"}}>
                 <form onSubmit={handleUpdateProfile}>
-                    <div>
-                        <label>First Name:</label>
+                    <div style={{display:"inline-block", marginBottom:"1px"}}>
+                        <label>First Name: </label>
                         <input
                             type="text"
                             name="firstName"
@@ -104,8 +105,8 @@ const Profile = () => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label>Last Name:</label>
+                    <div style={{display:"inline-block"}}>
+                        <label>Last Name: </label>
                         <input
                             type="text"
                             name="lastName"
@@ -113,8 +114,8 @@ const Profile = () => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label>Email:</label>
+                    <div style={{display:"inline-block", paddingLeft:"40px"}}>
+                        <label>Email: </label>
                         <input
                             type="email"
                             name="email"
@@ -122,8 +123,8 @@ const Profile = () => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label>Phone Number:</label>
+                    <div style= {{display:"inline-block", paddingLeft:"20px"}}>
+                        <label>Phone Number: </label>
                         <input
                             type="tel"
                             name="phoneNumber"
@@ -132,7 +133,7 @@ const Profile = () => {
                         />
                     </div>
                     <div>
-                        <label>Password:</label>
+                        <label>Password: </label>
                         <input
                             type="password"
                             name="password"
@@ -140,8 +141,13 @@ const Profile = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+               
+                    <div>
                     <button type="submit">Save</button>
+                    </div>
                 </form>
+            </div>
+
             ) : (
                 <div>
                     <p>First Name: {user.firstName}</p>
