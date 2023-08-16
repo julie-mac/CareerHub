@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update a user
-router.patch('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!user) {
