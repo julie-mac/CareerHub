@@ -10,7 +10,6 @@ const ThreadList = () => {
   const [threads, setThreads] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');  // New state for thread content
-  //const [userId, setUserId] = useState('');
   const [topicName, setTopicName] = useState('');
   const isLoggedIn = localStorage.getItem('token');
   const [userFirstName, setUserFirstName] = useState('');
@@ -29,15 +28,13 @@ const ThreadList = () => {
           axios.get(`http://localhost:3000/api/threads/topic/${topicId}`),
           axios.get(`http://localhost:3000/topics/${topicId}`)
         ]);
-  
-        console.log('Threads response:', threadsResponse.data);
-        console.log('Topic response:', topicResponse.data);
-  
+    
         const threadsWithUserData = await Promise.all(
           threadsResponse.data.map(async (thread) => {
-            const userResponse = await axios.get(`http://127.0.0.1:3000/api/users/${userId}`);
-            const user = userResponse.data; // Assuming userResponse.data has the correct user details
-            // Map the user details to the thread object
+            console.log(thread);
+            const userResponse = await axios.get(`http://localhost:3000/api/users/${thread.userId._id}`);
+            const user = userResponse.data;
+    
             return {
               ...thread,
               user: {
@@ -47,13 +44,14 @@ const ThreadList = () => {
             };
           })
         );
-        console.log('ThreadsWithUserData:', threadsWithUserData);
+    
         setThreads(threadsWithUserData);
         setTopicName(topicResponse.data.name);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
+    
     if (decodedToken) {
       setUserFirstName(decodedToken.firstName);
       setUserLastName(decodedToken.lastName);
@@ -66,33 +64,45 @@ const ThreadList = () => {
     event.preventDefault();
 
     const newThread = {
-        title: title,
-        content: content, 
-        userId: userId,
-        topic: topicId
+      title: title,
+      content: content,
+      userId: userId,
+      topic: topicId
     };
+  
     axios.post(`http://localhost:3000/api/threads/create`, newThread)
       .then(response => {
-        // If you receive the newly created thread with an ID or additional data from the server, you can update the local state with that data here
         console.log("Thread successfully added!");
-        setThreads(prevThreads => [
-          ...prevThreads,
-          {
-            title: title,
-            user: {
-              firstName: userFirstName, 
-              lastName: userLastName    
-            }
-          }
-        ]);
-        setTitle('');
-        setContent('');  
+  
+        // Fetch user details for the current user
+        axios.get(`http://localhost:3000/api/users/${userId}`)
+          .then(userResponse => {
+            const user = userResponse.data;
+  
+            // Add the newly created thread with user details to the threads state
+            setThreads(prevThreads => [
+              ...prevThreads,
+              {
+                title: title,
+                user: {
+                  firstName: user.firstName,
+                  lastName: user.lastName
+                }
+              }
+            ]);
+            setTitle('');
+            setContent('');
+          })
+          .catch(error => {
+            console.error("Error fetching user:", error);
+          });
       })
       .catch(error => {
         console.error("Error adding thread:", error);
         alert("There was an error adding the thread. Please try again.");
       });
-    };
+  };
+  
 
   const handleBackToTopics = () => {
     navigate(-1); 
