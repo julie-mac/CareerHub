@@ -97,13 +97,12 @@ const ThreadDetail = () => {
         <form onSubmit={handleAddReply}>
           <h3 style={{marginBottom:"8px"}}>Add Reply</h3>
           <div>
-            <textarea 
+          <textarea className="winputThreads1"
             value={newReply} 
             onChange={(e) => setNewReply(e.target.value)}
             required
           />
-        </div>
-
+          </div>
         <div style={{margin:"0px"}}>
           <button style={{margin:"0px"}} type="submit">Post Reply</button>
           <button style={{margin:"0px"}} type="button" onClick={handleBackToThreads}>Back To Threads</button> 

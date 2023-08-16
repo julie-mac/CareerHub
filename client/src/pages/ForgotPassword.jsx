@@ -35,7 +35,7 @@ function ForgotPassword() {
   const handleVerificationCodeSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://192.168.1.55:3000/api/2fa/verifycode", {
+      const response = await axios.post("http://localhost:3000/api/2fa/verifycode", {
         username: email,
         code: verificationCode,
       });
@@ -55,7 +55,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-        const response = await axios.patch(`http://192.168.1.55:3000/api/users/${userId}`, {
+        const response = await axios.patch(`http://localhost:3000/api/users/${userId}`, {
             password: newPassword,
         });
 
@@ -78,14 +78,15 @@ function ForgotPassword() {
         <h2>Forgot Password</h2>
         <form onSubmit={handleEmailSubmit}>
           <label>
-            Email:
-            <input
+          Email: <input
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
+          <div>
           <button type="submit">Submit</button>
+          </div>
         </form>
         {error && <p>{error}</p>}
       </div>
@@ -93,18 +94,20 @@ function ForgotPassword() {
   } else if (step === "enterVerificationCode") {
     return (
       <div>
-        <h2>A verification code has been sent to the phone number we have on file.</h2>
+        
         <form onSubmit={handleVerificationCodeSubmit}>
-          <label>
-            Please enter the verification code:
-            <input
+          <label style={{fontSize:"15px",  marginLeft:"0px"}}>
+            Enter the Verification Code: <input style={{width:"250px", height:"8px", display:"inline-block",}}
               type="text"
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
             />
-          </label>
+           </label>
+          <div>
           <button type="submit">Verify Code</button>
+          </div>
         </form>
+        <h2 style={{fontSize:"15px", color:"Chartreuse"}}>A verification code has been sent to the phone number we have on file.</h2>
         {error && <p>{error}</p>}
       </div>
     );
@@ -121,7 +124,9 @@ function ForgotPassword() {
               onChange={(e) => setNewPassword(e.target.value)}
             />
           </label>
+          <div>
           <button type="submit">Reset Password</button>
+          </div>
         </form>
         {error && <p>{error}</p>}
       </div>
@@ -129,7 +134,7 @@ function ForgotPassword() {
   } else if (step === 'success') {
     return (
       <div>
-        <h2>You've successfully reset your password and can log in. Redirecting you to the log-in page in 3...2...1...</h2>
+        <h2 style={{fontSize:"15px", color:"Chartreuse"}}>You've successfully reset your password and can log in. Redirecting you to the log-in page in 3...2...1...</h2>
       </div>
     )
   }

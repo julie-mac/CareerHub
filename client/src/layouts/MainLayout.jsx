@@ -6,7 +6,7 @@ import '../App.css'
 
 export default function MainLayout(props) {
   return (
-    <main>
+    <main style={{ zIndex:"-1", marginTop: "140px"}}>
       {props.children}      
       <Footer></Footer>
     </main>
