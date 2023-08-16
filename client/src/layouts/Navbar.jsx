@@ -28,10 +28,7 @@ export default function NavBar() {
             title: 'Topics',
             link: '../TopicsMain',
         },
-        {
-            title: 'Posts',
-            link: '../Posts',
-        }
+       
     ];    
 
     const fontFamily = [
@@ -44,8 +41,13 @@ export default function NavBar() {
         navBar: {
             textAlign: "center",
             fontFamily: fontFamily,
-            backgroundColor: "inherit",
+            backgroundColor: "MidnightBlue",
             fontSize: "2rem",
+            position: "fixed",
+            top: "-8px",
+            
+            maxWidth: "xl"
+                     
         },
         logo: {
             fontFamily: fontFamily,
@@ -84,10 +86,10 @@ export default function NavBar() {
     return (
 
         <>
-            <AppBar position="static" style={styles.navBar} elevation={0}>
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <img src={logo} width= "120px" alt="Logo" />
+            <AppBar style={styles.navBar }>
+                <Container  style={{ padding:"5px", maxWidth:"3000px"}}>
+                    <Toolbar  disableGutters>
+                        <img src={logo} width= "65px" alt="Logo" />
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -119,13 +121,16 @@ export default function NavBar() {
                                 }}
                             >
                                 {listItems.map((listItem, i) => (
-                                <Paper elevation={0} key={i}>
-                                <MenuItem onClick={listItem.onClick || handleCloseNavMenu}>
-                                <Typography textAlign="center"><Link href={listItem.link} style={styles.link}>{listItem.title}</Link></Typography>
-                            </MenuItem>
-                            </Paper>
-                        ))}
-                        </Menu>
+                                    <Paper elevation={0}>
+                                        <MenuItem 
+                                            key={i} 
+                                            onClick={listItem.onClick || handleCloseNavMenu}
+                                        >
+                                            <Typography textAlign="center"><Link href={listItem.link} style={styles.link}>{listItem.title}</Link></Typography>
+                                        </MenuItem>
+                                    </Paper>
+                                ))}
+                            </Menu>
                         </Box>
                         <Typography
                             variant="h6"

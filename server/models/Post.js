@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
   content: String,
-  userId: String,
+  userId: { type: Schema.Types.ObjectId, ref: 'User' },
   threadId: { type: Schema.Types.ObjectId, ref: 'Thread' },
 }, { timestamps: true });
 
