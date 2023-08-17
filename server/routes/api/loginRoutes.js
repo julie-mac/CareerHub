@@ -3,8 +3,6 @@ const router = express.Router();
 const User = require('../../models/User');
 require('dotenv').config({path: '.env'});
 const telnyx = require('telnyx')(process.env.TELNYX_API_KEY);
-console.log(process.env.TELNYX_API_KEY);
-
 
 router.post('/forgotpassword', async (request, response) => {
   const { username } = request.body;
