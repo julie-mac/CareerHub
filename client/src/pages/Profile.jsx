@@ -98,7 +98,7 @@ const Profile = () => {
                 <form onSubmit={handleUpdateProfile}>
                     <div style={{display:"inline-block", marginBottom:"1px"}}>
                         <label>First Name: </label>
-                        <input
+                        <input className="winputThreads3"
                             type="text"
                             name="firstName"
                             value={updatedUserData.firstName}
@@ -107,34 +107,34 @@ const Profile = () => {
                     </div>
                     <div style={{display:"inline-block"}}>
                         <label>Last Name: </label>
-                        <input
+                        <input className="winputThreads4" 
                             type="text"
                             name="lastName"
                             value={updatedUserData.lastName}
                             onChange={handleInputChange}
                         />
-                    </div>
-                    <div style={{display:"inline-block", paddingLeft:"40px"}}>
+                    </div >
+                    <div  className='email' >
                         <label>Email: </label>
-                        <input
+                        <input className="winputThreads5"
                             type="email"
                             name="email"
                             value={updatedUserData.email}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div style= {{display:"inline-block", paddingLeft:"20px"}}>
+                    <div className='email2'>
                         <label>Phone Number: </label>
-                        <input
+                        <input className="winputThreads6"
                             type="tel"
                             name="phoneNumber"
                             value={updatedUserData.phoneNumber}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
+                    <div style= {{display:"inline-block", paddingLeft:"5px"}}>
                         <label>Password: </label>
-                        <input
+                        <input className="winputThreads7"
                             type="password"
                             name="password"
                             value={updatedUserData.password}

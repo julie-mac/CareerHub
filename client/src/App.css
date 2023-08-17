@@ -365,8 +365,6 @@ a {
 
 
       
-
-
   .thread_list {
     background-color: #61dafb;
 
@@ -413,6 +411,8 @@ a {
   }
 
 
+
+
  .winputThreads1{
   width: 600px;
   margin-right: -28px;
@@ -423,6 +423,46 @@ a {
   width: 600px;
  
  }
+
+
+.winputThreads3{
+  width: 225px;
+
+}
+
+.winputThreads4{
+  width: 225px;
+
+}
+
+.winputThreads5{
+  width: 225px;
+
+}
+
+.winputThreads6{
+  width: 225px;
+
+}
+
+.winputThreads7{
+  width: 225px;
+
+}
+
+
+.email {
+  display: inline-block;
+  padding-left: 46px;
+}
+
+.email2 {
+  display: inline-block;
+  padding-right: 45px ;
+}
+
+
+
 
 
 
@@ -467,6 +507,10 @@ a {
 
 }
 
+
+
+
+
 @media (max-width: 600px) {
 
 main {
@@ -501,11 +545,15 @@ main {
   width: 260px;
 
 }
+
 }
 
 
 
-@media (max-width: 500px) {
+
+
+
+@media (max-width: 510px) {
 
 main {
   margin: 10px;
@@ -520,8 +568,66 @@ main {
 .winput {  
   width: 55%;
 }
+label {
+  font-size: 15px;
+}
+
+.email {
+  padding-left: 35px;
+}
+
+.email2 {
+  padding-right: 35px;
+}
+
 
 }
+
+
+@media (max-width: 520px) {
+
+  label {
+    font-size: 12px;
+  }
+  .email {
+    padding-left: 30px;
+  }
+  
+  .email2 {
+    padding-right: 20px;
+  }
+
+}
+
+@media (max-width: 430px) {
+  .winput3 {  
+    width: 40%;
+  }
+  .email {
+    padding-left: 35px;
+  }
+  
+  .email2 {
+    padding-right: 30px;
+  }
+  
+  
+  }
+
+  @media (max-width: 420px) {
+    .email {
+      padding-left: 35px;
+    }
+    
+    .email2 {
+      padding-right: 21px;
+    }
+    
+    
+    }
+
+
+
 
 
 
@@ -549,6 +655,31 @@ main {
 
 }
 
+.winputThreads3{
+  width: 200px;
+
+}
+
+.winputThreads4{
+  width: 200px;
+
+}
+
+.winputThreads5{
+  width: 200px;
+
+}
+
+.winputThreads6{
+  width: 200px;
+
+}
+
+.winputThreads7{
+  width: 200px;
+
+}
+
 .thread_comments {
   width: 350px;
 }
@@ -556,6 +687,18 @@ main {
 
   width: 350px;
 
+}
+
+label {
+  font-size: 12px;
+}
+
+.email {
+  padding-left: 25px;
+}
+
+.email2 {
+  padding-right: 28px;
 }
 }
 
