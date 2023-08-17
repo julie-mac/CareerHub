@@ -24,33 +24,36 @@ const ThreadList = () => {
   useEffect(() => {
     const fetchThreadsAndTopic = async () => {
       try {
-        const [threadsResponse, topicResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/api/threads/topic/${topicId}`),
-          axios.get(`http://localhost:3000/topics/${topicId}`)
-        ]);
-    
-        const threadsWithUserData = await Promise.all(
-          threadsResponse.data.map(async (thread) => {
-            console.log(thread);
-            const userResponse = await axios.get(`http://localhost:3000/api/users/${thread.userId._id}`);
-            const user = userResponse.data;
-    
-            return {
-              ...thread,
-              user: {
-                firstName: user.firstName,
-                lastName: user.lastName
-              }
-            };
-          })
-        );
-    
-        setThreads(threadsWithUserData);
+        const topicResponse = await axios.get(`http://localhost:3000/topics/${topicId}`);
         setTopicName(topicResponse.data.name);
+        
+        const threadsResponse = await axios.get(`http://localhost:3000/api/threads/topic/${topicId}`);
+    
+        if (threadsResponse.data.length > 0) {
+          const threadsWithUserData = await Promise.all(
+            threadsResponse.data.map(async (thread) => {
+              const userResponse = await axios.get(`http://localhost:3000/api/users/${thread.userId._id}`);
+              const user = userResponse.data;
+    
+              return {
+                ...thread,
+                user: {
+                  firstName: user.firstName,
+                  lastName: user.lastName
+                }
+              };
+            })
+          );
+    
+          setThreads(threadsWithUserData);
+        } else {
+          setThreads([]); // No threads available for this topic
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
+    
     
     if (decodedToken) {
       setUserFirstName(decodedToken.firstName);
@@ -111,7 +114,7 @@ const ThreadList = () => {
 
 return (
 <div>
-  <h2>Threads for {topicName}</h2>
+  <h2>Threads for {topicName || 'Topic Name Loading...'}</h2>
     
 
   {isLoggedIn ? (<form onSubmit={handleAddThread}>
