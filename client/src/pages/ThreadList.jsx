@@ -106,6 +106,18 @@ const ThreadList = () => {
         alert("There was an error adding the thread. Please try again.");
       });
   };
+
+  const handleDeleteThread = (threadIdToDelete) => {
+    axios.delete(`http://localhost:3000/api/threads/${threadIdToDelete}`)
+      .then(() => {
+        console.log("Thread successfully deleted!");
+        setThreads(prevThreads => prevThreads.filter(thread => thread._id !== threadIdToDelete));
+      })
+      .catch(error => {
+        console.error("Error deleting thread:", error);
+        alert("There was an error deleting the thread. Please try again.");
+      });
+  };
   
 
   const handleBackToTopics = () => {
@@ -154,6 +166,7 @@ return (
     <div className="thread_comments" key={index}>
       <p className="userID">Created by: {thread.user.firstName} {thread.user.lastName}</p>
       <h2 className="comment"><Link  to={`/threads/${thread._id}`}>{thread.title}</Link></h2>
+      <button style={{ marginLeft: "10px" }} onClick={() => handleDeleteThread(thread._id)}>Delete</button>
       {/* Display the thread content here if needed */}
     </div>
   ))}
