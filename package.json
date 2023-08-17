@@ -27,12 +27,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "client": "cd client && cross-env PORT=3001 react-scripts start",
+    "server": "nodemon ./server/server.js",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
   },
   "eslintConfig": {
     "extends": [
