@@ -3,7 +3,9 @@ const cors = require('cors');
 const config = require('./config/config');
 const app = express();
 const mongoose = require('mongoose');
+require('dotenv').config({path: '.env'});
 const PORT = (process.env.PORT || config.app.port);
+
 
 mongoose.connect((process.env.MONGODB_URI || `mongodb://${config.db.host}/${config.db.name}`), {
     useNewUrlParser: true,
