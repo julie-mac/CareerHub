@@ -91,57 +91,63 @@ const Profile = () => {
 
     return (
         <div>
-            {user.firstName && <h1>Welcome, {user.firstName}!</h1>}
+            {user.firstName && <h2>Welcome, {user.firstName}!</h2>}
 
             {isEditing ? (
+            <div style={{maxWidth:"750px", marginLeft:"auto",marginRight:"auto"}}>
                 <form onSubmit={handleUpdateProfile}>
-                    <div>
-                        <label>First Name:</label>
-                        <input
+                    <div style={{display:"inline-block", marginBottom:"1px"}}>
+                        <label>First Name: </label>
+                        <input className="winputThreads3"
                             type="text"
                             name="firstName"
                             value={updatedUserData.firstName}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label>Last Name:</label>
-                        <input
+                    <div style={{display:"inline-block"}}>
+                        <label>Last Name: </label>
+                        <input className="winputThreads4" 
                             type="text"
                             name="lastName"
                             value={updatedUserData.lastName}
                             onChange={handleInputChange}
                         />
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input
+                    </div >
+                    <div  className='email' >
+                        <label>Email: </label>
+                        <input className="winputThreads5"
                             type="email"
                             name="email"
                             value={updatedUserData.email}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label>Phone Number:</label>
-                        <input
+                    <div className='email2'>
+                        <label>Phone Number: </label>
+                        <input className="winputThreads6"
                             type="tel"
                             name="phoneNumber"
                             value={updatedUserData.phoneNumber}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label>Password:</label>
-                        <input
+                    <div style= {{display:"inline-block", paddingLeft:"5px"}}>
+                        <label>Password: </label>
+                        <input className="winputThreads7"
                             type="password"
                             name="password"
                             value={updatedUserData.password}
                             onChange={handleInputChange}
                         />
                     </div>
+               
+                    <div>
                     <button type="submit">Save</button>
+                    </div>
                 </form>
+            </div>
+
             ) : (
                 <div>
                     <p>First Name: {user.firstName}</p>
