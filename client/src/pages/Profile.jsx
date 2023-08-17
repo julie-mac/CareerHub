@@ -93,6 +93,7 @@ const Profile = () => {
             setIsEditing(false);
             setShowConfirmation(false);
             console.log('Profile deleted successfully');
+            localStorage.removeItem('token');
             // Redirect to the main page or login page
             history('/'); // or history.push('/login') if you have a separate login page
           } else {
