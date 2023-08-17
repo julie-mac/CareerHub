@@ -4,6 +4,7 @@ const path = require('path');  // <-- Import this
 const config = require('./config/config');
 const app = express();
 const mongoose = require('mongoose');
+const PORT = (process.env.PORT || config.app.port)
 
 mongoose.connect((process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/forum_db'), {
     useNewUrlParser: true,
@@ -34,4 +35,4 @@ app.get('*', (req, res) => {  // <-- Add this wildcard route
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.listen(config.app.port, () => console.log(`Server listening on port ${config.app.port}`));
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
