@@ -4,7 +4,7 @@ const config = require('./config/config');
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
