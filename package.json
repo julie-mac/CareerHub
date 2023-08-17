@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "client": "cd client && PORT=3001 react-scripts start",
+    "client": "cd client && react-scripts start",
     "server": "nodemon ./server/server.js",
     "install-client": "cd client && npm install && npm run build && cd ..",
     "install-server": "cd server && npm install && cd .. ",
