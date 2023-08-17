@@ -24,36 +24,33 @@ const ThreadList = () => {
   useEffect(() => {
     const fetchThreadsAndTopic = async () => {
       try {
-        const topicResponse = await axios.get(`http://localhost:3000/topics/${topicId}`);
+        const [threadsResponse, topicResponse] = await Promise.all([
+          axios.get(`http://localhost:3000/api/threads/topic/${topicId}`),
+          axios.get(`http://localhost:3000/topics/${topicId}`)
+        ]);
+    
+        const threadsWithUserData = await Promise.all(
+          threadsResponse.data.map(async (thread) => {
+            console.log(thread);
+            const userResponse = await axios.get(`http://localhost:3000/api/users/${thread.userId._id}`);
+            const user = userResponse.data;
+    
+            return {
+              ...thread,
+              user: {
+                firstName: user.firstName,
+                lastName: user.lastName
+              }
+            };
+          })
+        );
+    
+        setThreads(threadsWithUserData);
         setTopicName(topicResponse.data.name);
-        
-        const threadsResponse = await axios.get(`http://localhost:3000/api/threads/topic/${topicId}`);
-    
-        if (threadsResponse.data.length > 0) {
-          const threadsWithUserData = await Promise.all(
-            threadsResponse.data.map(async (thread) => {
-              const userResponse = await axios.get(`http://localhost:3000/api/users/${thread.userId._id}`);
-              const user = userResponse.data;
-    
-              return {
-                ...thread,
-                user: {
-                  firstName: user.firstName,
-                  lastName: user.lastName
-                }
-              };
-            })
-          );
-    
-          setThreads(threadsWithUserData);
-        } else {
-          setThreads([]); // No threads available for this topic
-        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    
     
     if (decodedToken) {
       setUserFirstName(decodedToken.firstName);
@@ -106,18 +103,6 @@ const ThreadList = () => {
         alert("There was an error adding the thread. Please try again.");
       });
   };
-
-  const handleDeleteThread = (threadIdToDelete) => {
-    axios.delete(`http://localhost:3000/api/threads/${threadIdToDelete}`)
-      .then(() => {
-        console.log("Thread successfully deleted!");
-        setThreads(prevThreads => prevThreads.filter(thread => thread._id !== threadIdToDelete));
-      })
-      .catch(error => {
-        console.error("Error deleting thread:", error);
-        alert("There was an error deleting the thread. Please try again.");
-      });
-  };
   
 
   const handleBackToTopics = () => {
@@ -126,7 +111,7 @@ const ThreadList = () => {
 
 return (
 <div>
-  <h2>Threads for {topicName || 'Topic Name Loading...'}</h2>
+  <h2>Threads for {topicName}</h2>
     
 
   {isLoggedIn ? (<form onSubmit={handleAddThread}>
@@ -166,7 +151,6 @@ return (
     <div className="thread_comments" key={index}>
       <p className="userID">Created by: {thread.user.firstName} {thread.user.lastName}</p>
       <h2 className="comment"><Link  to={`/threads/${thread._id}`}>{thread.title}</Link></h2>
-      <button style={{ marginLeft: "10px" }} onClick={() => handleDeleteThread(thread._id)}>Delete</button>
       {/* Display the thread content here if needed */}
     </div>
   ))}
@@ -177,3 +161,4 @@ return (
 }; 
 
 export default ThreadList;
+
