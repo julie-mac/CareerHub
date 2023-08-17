@@ -1,3 +1,6 @@
+![Screenshot 2023-08-17 at 7 54 05 PM](https://github.com/julie-mac/CareerHub/assets/123594716/e5bcfe5f-450f-4925-9708-8e4d63d2f55f)
+![Screenshot 2023-08-17 at 7 54 14 PM](https://github.com/julie-mac/CareerHub/assets/123594716/1255b736-d469-4380-ac99-e9c4162234ea)
+![Uploading Screenshot 2023-08-17 at 7.54.29 PM.png…]()
 # CAREER HUB
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
@@ -14,6 +17,9 @@ At the heart of our website are various topics that span the spectrum of career 
 - [License](#license)
 
 ## Screenshot
+![Screenshot 2023-08-17 at 7 54 05 PM](https://github.com/julie-mac/CareerHub/assets/123594716/e5bcfe5f-450f-4925-9708-8e4d63d2f55f)
+![Screenshot 2023-08-17 at 7 54 14 PM](https://github.com/julie-mac/CareerHub/assets/123594716/1255b736-d469-4380-ac99-e9c4162234ea)
+
 
 ## Deployment
 - [Github Repo](https://github.com/julie-mac/CareerHub)
