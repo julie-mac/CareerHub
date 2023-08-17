@@ -31,6 +31,8 @@ Serves as a virtual space where professionals can connect, learn, and share in a
 - React
 - Node.js
 - Express.js
+- MongoDB
+- Telenyx
 
 ## Contributors
 - [angyn3](https://github.com/angyn3)
