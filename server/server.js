@@ -34,4 +34,4 @@ app.get('*', (req, res) => {  // <-- Add this wildcard route
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.listen(config.app.port, () => console.log(`Server listening on port ${config.app.port}`));v
+app.listen(config.app.port, () => console.log(`Server listening on port ${config.app.port}`));
