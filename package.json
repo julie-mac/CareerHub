@@ -32,7 +32,7 @@
     "install-client": "cd client && npm install && npm run build && cd ..",
     "install-server": "cd server && npm install && cd .. ",
     "heroku-postbuild": "npm run install-client && npm run install-server",
-    "start": "concurrently --kill-others \"npm run server\" \"npm run client\""
+    "start": "node ./server/server.js"
   },
   "eslintConfig": {
     "extends": [
