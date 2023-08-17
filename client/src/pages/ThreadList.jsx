@@ -83,6 +83,7 @@ const ThreadList = () => {
             setThreads(prevThreads => [
               ...prevThreads,
               {
+                _id: response.data.thread._id,
                 title: title,
                 user: {
                   firstName: user.firstName,
@@ -129,7 +130,7 @@ return (
         <label>Content: </label>
           <input className="winputThreads2" 
             type="text"
-            value={userId}
+            value={content}
             onChange={(e) => setContent(e.target.value)}
             required
           />
