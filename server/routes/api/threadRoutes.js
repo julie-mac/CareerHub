@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { autenticateToken } = require('../utils/Auth');
+const { authenticateToken } = require('../utils/Auth');
 const Thread = require('../../models/Threads');
 const Post = require('../../models/Post');
 const mongoose = require('mongoose');
