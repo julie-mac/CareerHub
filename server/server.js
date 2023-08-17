@@ -3,8 +3,11 @@ const cors = require('cors');
 const config = require('./config/config');
 const app = express();
 const mongoose = require('mongoose');
+require('dotenv').config({path: '.env'});
+const PORT = (process.env.PORT || config.app.port);
 
-mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`, {
+
+mongoose.connect((process.env.MONGODB_URI || `mongodb://${config.db.host}/${config.db.name}`), {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -25,4 +28,4 @@ app.use(routes);
 const topicsRouter = require('./routes/topics');
 app.use('/topics', topicsRouter);
 
-app.listen(config.app.port, () => console.log(`Server listening on port ${config.app.port}`));
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
