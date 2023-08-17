@@ -6,6 +6,7 @@ const Profile = () => {
     const history = useNavigate();
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     const [updatedUserData, setUpdatedUserData] = useState({
         firstName: '',
         lastName: '',
@@ -72,6 +73,37 @@ const Profile = () => {
             console.error('Error updating user data:', error);
         });
     };
+    const handleDeleteConfirmation = () => {
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.userId;
+        
+        const fetchURL = `http://localhost:3000/api/users/${userId}`;
+      
+        fetch(fetchURL, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(response => {
+          if (response.status === 200) {
+            setUser(null);
+            setIsEditing(false);
+            setShowConfirmation(false);
+            console.log('Profile deleted successfully');
+            // Redirect to the main page or login page
+            history('/'); // or history.push('/login') if you have a separate login page
+          } else {
+            console.error('Error deleting profile:', response.status);
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting profile:', error);
+        });
+      };
+      
 
     const toggleEditing = event => {
         setIsEditing(!isEditing);
@@ -144,8 +176,16 @@ const Profile = () => {
                
                     <div>
                     <button type="submit">Save</button>
+                    <button type="button" onClick={() => setShowConfirmation(true)}>Delete Profile</button>
                     </div>
                 </form>
+                {showConfirmation && (
+                <div className="confirmation-modal">
+                    <p>Are you sure you want to delete your profile?</p>
+                    <button onClick={handleDeleteConfirmation}>Yes</button>
+                    <button onClick={() => setShowConfirmation(false)}>Cancel</button>
+                </div>
+                )}
             </div>
 
             ) : (
