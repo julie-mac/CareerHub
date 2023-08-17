@@ -55,7 +55,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-        const response = await axios.patch(`http://localhost:3000/api/users/${userId}`, {
+        const response = await axios.put(`http://localhost:3000/api/users/${userId}`, {
             password: newPassword,
         });
 
