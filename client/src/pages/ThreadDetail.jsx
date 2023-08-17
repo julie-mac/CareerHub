@@ -9,14 +9,11 @@ const ThreadDetail = () => {
   const [newReply, setNewReply] = useState('');
   const [thread, setThread] = useState(null);
   const isLoggedIn = localStorage.getItem('token');
-  // const [userFirstName, setUserFirstName] = useState('');
-  // const [userLastName, setUserLastName] = useState('');
   const decodedToken = isLoggedIn ? jwtDecode(localStorage.getItem('token')) : null;
   const userId = decodedToken ? decodedToken.userId : '';
-  
+
   const navigate = useNavigate();
   const { threadId } = useParams();
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,24 +24,28 @@ const ThreadDetail = () => {
           axios.get(`http://localhost:3000/api/posts/${threadId}/reply`)
         ]);
 
-        setThread(threadResponse.data);
-        setReplies(repliesResponse.data || []);
+        const threadData = threadResponse.data;
+        const repliesData = repliesResponse.data || [];
 
-        // Fetch user information for both the original thread and all replies
-        const userIdsToFetch = [threadResponse.data.userId, ...repliesResponse.data.map(reply => reply.userId)];
+        // Fetch user information for the thread author
+        const threadUserResponse = await axios.get(`http://localhost:3000/api/users/${threadData.userId}`);
+        const threadUser = threadUserResponse.data;
+
+        // Fetch user information for all reply authors
+        const replyAuthors = [...repliesData.map(reply => reply.userId), threadData.userId];
         const userResponses = await Promise.all(
-          userIdsToFetch.map(userId => axios.get(`http://localhost:3000/api/users/${userId}`))
+          replyAuthors.map(authorId => axios.get(`http://localhost:3000/api/users/${authorId}`))
         );
-
         const usersData = userResponses.map(response => response.data);
 
-        setThread(prevThread => ({
-          ...prevThread,
-          user: usersData.find(user => user._id === prevThread.userId)
-        }));
-        
-        setReplies(prevReplies =>
-          prevReplies.map(reply => ({
+        // Set the thread and reply authors with user information
+        setThread({
+          ...threadData,
+          user: threadUser
+        });
+
+        setReplies(
+          repliesData.map(reply => ({
             ...reply,
             user: usersData.find(user => user._id === reply.userId)
           }))
@@ -58,22 +59,28 @@ const ThreadDetail = () => {
   }, [threadId]);
   
 
-  const handleAddReply = (event) => {
+  const handleAddReply = async (event) => {
     event.preventDefault();
   
-    axios.post(`http://localhost:3000/api/posts/${threadId}/reply`, {
-      userId: userId,
-      content: newReply,
-    })
-    .then(response => {
-      const addedReply = response.data.reply || { content: newReply, userId: userId }; 
+    try {
+      const response = await axios.post(`http://localhost:3000/api/posts/${threadId}/reply`, {
+        userId: userId,
+        content: newReply,
+      });
+  
+      const addedReply = response.data.reply || { content: newReply, userId: userId };
+  
+      // Fetch user information for the author of the new reply
+      const userResponse = await axios.get(`http://localhost:3000/api/users/${addedReply.userId}`);
+      const user = userResponse.data;
+  
+      addedReply.user = user;
+  
       setReplies(prevReplies => [...prevReplies, addedReply]);
       setNewReply('');
-    })
-    
-    .catch(error => {
+    } catch (error) {
       console.error("Error posting reply:", error);
-    });
+    }
   };
   
   const handleBackToThreads = () => {
@@ -88,7 +95,7 @@ const ThreadDetail = () => {
           <h2 style={{marginBottom:"0px"}}>{thread.title} </h2>
           <div className="thread_content">
           <p>{thread.content}</p>
-          <p className="userID-thread">Created by: {thread.userId}</p> 
+          <p className="userID-thread">Created by: {thread.user.firstName} {thread.user.lastName}</p> 
         </div>
         </div>
       )}
@@ -118,14 +125,13 @@ const ThreadDetail = () => {
      
       <h3 style={{marginBottom:"8px"}}>Replies</h3>
       {replies.map(reply => (
-      <div className="thread_comments"  key={reply._id}>
-        <p  className="userID">Replied by: {reply.userId}</p>
-        <h2  className="comment" > {reply.content}</h2>
-        
-      </div>
+        <div className="thread_comments" key={reply._id}>
+          {reply.user && (
+            <p className="userID">Replied by: {reply.user.firstName} {reply.user.lastName}</p>
+          )}
+          <h2 className="comment">{reply.content}</h2>
+        </div>
       ))}
-
-
 
     </div>
   );
