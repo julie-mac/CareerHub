@@ -12,6 +12,10 @@ CareerHub is a dynamic social media platform for extensive career discussions, s
 - [License](#license)
 
 ## Screenshot
+![Login](client/src/images/screenshots%20for%20readme/Login.png)
+![Topics](client/src/images/screenshots%20for%20readme/Topics.png)
+![Registration](client/src/images/screenshots%20for%20readme/Registration.png)
+![Create Thread](client/src/images/screenshots%20for%20readme/Create%20Thread.png)
 
 ## Deployment
 - [Github Repo](https://github.com/julie-mac/CareerHub)
