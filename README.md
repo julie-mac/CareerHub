@@ -25,7 +25,7 @@ At the heart of our website are various topics that span the spectrum of career 
 
 ## Deployment
 - [Github Repo](https://github.com/julie-mac/CareerHub)
-- [Heroku]
+- [Heroku](https://careerhub-5b5d4464cfbf.herokuapp.com/)
 
 ## Usage
 Serves as a virtual space where professionals can connect, learn, and share in a secure environment, enhancing their careers and knowledge within their respective industries.
