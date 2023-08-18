@@ -46,17 +46,18 @@ const seedUsers = [
 
 const seedThreads = [
     {
-        title: 'First thread',
+        title: 'Investing in Real Estate',
+        content: 'Real estate has always been a lucrative market. Anyone here with experience in this field?',
         topic: 'Real Estate',
-        likes: ['User2', 'User3']
+        likes: ['dude@example.com', 'jane.doe@example.com'] // I'm using emails for simplicity. 
     },
     {
-        title: 'Second thread',
+        title: 'Choosing the Right Programming Language',
+        content: 'There are so many programming languages out there. Which one is the best for web development?',
         topic: 'Software Development',
-        likes: ['User1']
+        likes: ['dude@example.com']
     },
-
-    
+  
 ];
 
 const seedPosts = [
@@ -79,28 +80,40 @@ const seedDatabase = async () => {
 
     console.log('Users, Threads, Posts and Topics cleared');
 
-    // Seeding Topics
+    const topics = {};
     for(let topic of seedTopics) {
         let newTopic = new Topic(topic);
         await newTopic.save();
+        topics[newTopic.name] = newTopic._id;
         console.log('Topic created: ' + newTopic.name);
     }
 
+    const users = {};
     for(let seed of seedUsers) {
         let user = new User(seed);
         await user.save();
-        console.log('User created: ' + user.firstName);
+        users[user.email] = user._id;
+        console.log('User created: ' + user.firstName + ' ' + user.lastName);
     }
 
     for(let i = 0; i < seedThreads.length; i++) {
-        let topicId = await Topic.findOne({ name: seedThreads[i].topic });
-        let user = await User.findOne({ email: seedUsers[i].email });
+        let thread = new Thread({
+            title: seedThreads[i].title,
+            content: seedThreads[i].content,
+            userId: users[seedUsers[i].email],
+            topic: topics[seedThreads[i].topic],
+            likes: seedThreads[i].likes.map(email => users[email])
+        });
 
-        let thread = new Thread({...seedThreads[i], userId: user._id, topic: topicId._id});
         let savedThread = await thread.save();
         console.log('Thread created: ' + savedThread.title);
 
-        let post = new Post({...seedPosts[i], userId: user._id, threadId: savedThread._id});
+        let post = new Post({
+            ...seedPosts[i],
+            userId: users[seedUsers[i].email],
+            threadId: savedThread._id
+        });
+
         let savedPost = await post.save();
         console.log('Post created: ' + savedPost.content);
 
