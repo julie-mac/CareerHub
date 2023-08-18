@@ -15,6 +15,12 @@ At the heart of our website are various topics that span the spectrum of career 
 
 ## Screenshot
 
+![Screenshot 2023-08-17 at 7 55 38 PM](https://github.com/julie-mac/CareerHub/assets/123594716/381dfe74-e438-4acd-8efb-1cf90113f6b1)
+![Screenshot 2023-08-17 at 7 55 57 PM](https://github.com/julie-mac/CareerHub/assets/123594716/2cc75b42-4117-4f4f-b5cf-2a1a778f85b0)
+![Screenshot 2023-08-17 at 7 54 14 PM](https://github.com/julie-mac/CareerHub/assets/123594716/6ac567c0-3aa2-43bc-9145-58987ac3b4b7)
+![Screenshot 2023-08-17 at 7 54 29 PM](https://github.com/julie-mac/CareerHub/assets/123594716/67d51309-f8db-4d8e-ae4b-e7bb03487bf0)
+
+
 ## Deployment
 - [Github Repo](https://github.com/julie-mac/CareerHub)
 - [Heroku]
