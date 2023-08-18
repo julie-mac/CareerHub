@@ -15,6 +15,7 @@ At the heart of our website are various topics that span the spectrum of career 
 
 ## Screenshot
 
+![Screenshot 2023-08-17 at 7 51 25 PM](https://github.com/julie-mac/CareerHub/assets/123594716/d7157a03-8524-4747-9b8d-2de4f3e4b79d)
 ![Screenshot 2023-08-17 at 7 55 38 PM](https://github.com/julie-mac/CareerHub/assets/123594716/381dfe74-e438-4acd-8efb-1cf90113f6b1)
 ![Screenshot 2023-08-17 at 7 55 57 PM](https://github.com/julie-mac/CareerHub/assets/123594716/2cc75b42-4117-4f4f-b5cf-2a1a778f85b0)
 ![Screenshot 2023-08-17 at 7 54 14 PM](https://github.com/julie-mac/CareerHub/assets/123594716/6ac567c0-3aa2-43bc-9145-58987ac3b4b7)
